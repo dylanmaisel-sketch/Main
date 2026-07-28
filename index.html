@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Daily Beet — From the soil to your bowl</title>
+<meta name="description" content="Plant-forward bowls, cold-pressed juice, and superfood smoothies. New Orleans, since 2017.">
+<style>*{margin:0;padding:0;box-sizing:border-box}img{max-width:100%}</style>
+</head>
+<body>
+<style>
+  :root{
+    --linen:#FBF5EC; --linen-2:#F4EADB; --card:#FFFDF8;
+    --ink:#2A0F1B; --ink-soft:#5A4551;
+    --beet:#B01E4F; --beet-deep:#8A1540; --beet-glow:#D64C77;
+    --leaf:#436B3C; --leaf-deep:#2F4E2A;
+    --gold:#E3A32B; --dragon:#E85D8A; --acai:#5B2A6B; --matcha:#7FA046;
+    --line:rgba(42,15,27,.12);
+    --shadow:0 18px 46px -22px rgba(42,15,27,.45);
+    --serif:"Palatino Linotype","Book Antiqua",Palatino,Georgia,"Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --maxw:1160px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --linen:#1B0A12; --linen-2:#241019; --card:#271320;
+      --ink:#F6E8DE; --ink-soft:#C7A9B4;
+      --beet:#E3547F; --beet-deep:#B01E4F; --beet-glow:#F06E93;
+      --leaf:#8FBE6E; --leaf-deep:#3A5C33;
+      --line:rgba(246,232,222,.14);
+      --shadow:0 18px 48px -20px rgba(0,0,0,.65);
+    }
+  }
+  :root[data-theme="light"]{
+    --linen:#FBF5EC; --linen-2:#F4EADB; --card:#FFFDF8;
+    --ink:#2A0F1B; --ink-soft:#5A4551; --beet:#B01E4F; --beet-deep:#8A1540;
+    --beet-glow:#D64C77; --leaf:#436B3C; --leaf-deep:#2F4E2A;
+    --line:rgba(42,15,27,.12); --shadow:0 18px 46px -22px rgba(42,15,27,.45);
+  }
+  :root[data-theme="dark"]{
+    --linen:#1B0A12; --linen-2:#241019; --card:#271320;
+    --ink:#F6E8DE; --ink-soft:#C7A9B4; --beet:#E3547F; --beet-deep:#B01E4F;
+    --beet-glow:#F06E93; --leaf:#8FBE6E; --leaf-deep:#3A5C33;
+    --line:rgba(246,232,222,.14); --shadow:0 18px 48px -20px rgba(0,0,0,.65);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--linen);color:var(--ink);font-family:var(--sans);
+    line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,44px)}
+  .eyebrow{
+    font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--beet);display:inline-flex;align-items:center;gap:.55em;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--beet);border-radius:2px}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.02;text-wrap:balance;letter-spacing:-.01em}
+  .btn{
+    display:inline-flex;align-items:center;gap:.5em;font-family:var(--sans);font-weight:650;
+    font-size:.95rem;padding:.85em 1.5em;border-radius:999px;cursor:pointer;border:1.5px solid transparent;
+    transition:transform .18s ease,box-shadow .18s ease,background .18s ease,color .18s ease;
+  }
+  .btn-primary{background:var(--beet);color:#fff;box-shadow:0 10px 24px -12px var(--beet)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 30px -12px var(--beet)}
+  .btn-ghost{border-color:var(--line);color:var(--ink);background:transparent}
+  .btn-ghost:hover{border-color:var(--beet);color:var(--beet);transform:translateY(-2px)}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--linen) 86%,transparent);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:72px;gap:20px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--serif);font-size:1.3rem;font-weight:600;letter-spacing:-.01em}
+  .brand .dot{color:var(--beet)}
+  .nav-links{display:flex;gap:30px;align-items:center;font-size:.93rem;font-weight:550}
+  .nav-links a{position:relative;color:var(--ink-soft);transition:color .16s}
+  .nav-links a:hover{color:var(--beet)}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:var(--beet);transition:width .22s}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{display:flex;gap:12px;align-items:center}
+  .theme-toggle{background:transparent;border:1px solid var(--line);color:var(--ink-soft);width:38px;height:38px;
+    border-radius:50%;cursor:pointer;font-size:1rem;display:grid;place-items:center;transition:.18s}
+  .theme-toggle:hover{border-color:var(--beet);color:var(--beet)}
+  @media(max-width:860px){.nav-links{display:none}}
+
+  /* HERO */
+  .hero{position:relative;padding:clamp(48px,8vw,96px) 0 clamp(60px,7vw,90px);overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;z-index:0;
+    background:radial-gradient(1100px 620px at 82% -8%,color-mix(in srgb,var(--beet) 22%,transparent),transparent 60%),
+               radial-gradient(760px 520px at 6% 108%,color-mix(in srgb,var(--leaf) 18%,transparent),transparent 62%)}
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,64px);align-items:center}
+  .hero h1{font-size:clamp(2.9rem,7.4vw,5.4rem);margin:.32em 0 .28em}
+  .hero h1 em{font-style:italic;color:var(--beet)}
+  .hero p.lede{font-size:clamp(1.05rem,2.2vw,1.28rem);color:var(--ink-soft);max-width:34ch;margin-bottom:1.7em}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .since{margin-top:1.9em;display:flex;gap:22px;flex-wrap:wrap;font-size:.86rem;color:var(--ink-soft)}
+  .since b{font-family:var(--serif);font-size:1.5rem;color:var(--ink);display:block;line-height:1;margin-bottom:3px}
+  .hero-art{position:relative;display:grid;place-items:center;min-height:340px}
+  .beet-stage{position:relative;width:min(420px,80%);aspect-ratio:1;display:grid;place-items:center}
+  .beet-stage .halo{position:absolute;inset:4%;border-radius:50%;
+    background:radial-gradient(circle at 42% 36%,color-mix(in srgb,var(--beet-glow) 55%,transparent),color-mix(in srgb,var(--beet) 30%,transparent) 55%,transparent 72%)}
+  .beet-svg{position:relative;width:78%;animation:float 6.5s ease-in-out infinite;filter:drop-shadow(0 24px 30px rgba(138,21,64,.35))}
+  .fresh-badge{position:absolute;top:2%;right:2%;width:118px;height:118px;animation:spin 22s linear infinite}
+  .fresh-badge text{font-family:var(--sans);font-size:11.4px;font-weight:700;letter-spacing:2.2px;fill:var(--ink)}
+  .fresh-badge .core{fill:var(--gold)}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-16px) rotate(1.5deg)}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media(max-width:820px){.hero-grid{grid-template-columns:1fr;text-align:left}
+    .hero-art{order:-1;min-height:260px}.fresh-badge{width:92px;height:92px}}
+
+  /* TICKER */
+  .ticker{background:var(--beet);color:#fff;border-block:1px solid var(--beet-deep);overflow:hidden;padding:13px 0}
+  .ticker-row{display:flex;gap:0;white-space:nowrap;width:max-content;animation:slide 34s linear infinite}
+  .ticker-row span{font-family:var(--serif);font-size:1.12rem;padding:0 26px;opacity:.96;display:inline-flex;gap:26px;align-items:center}
+  .ticker-row span::after{content:"✦";opacity:.6;font-size:.8rem}
+  @keyframes slide{to{transform:translateX(-50%)}}
+
+  /* SECTION SHELL */
+  section{position:relative}
+  .sec-pad{padding:clamp(66px,9vw,116px) 0}
+  .sec-head{max-width:640px;margin-bottom:clamp(34px,5vw,58px)}
+  .sec-head h2{font-size:clamp(2rem,4.6vw,3.3rem);margin:.34em 0 .3em}
+  .sec-head p{color:var(--ink-soft);font-size:1.06rem}
+
+  /* ROOTS */
+  .roots{background:var(--leaf-deep);color:#F3EFDD;overflow:hidden}
+  :root[data-theme="dark"] .roots{background:#12210F}
+  .roots .eyebrow{color:#C9E0A6}
+  .roots .eyebrow::before{background:#C9E0A6}
+  .roots-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center}
+  .roots h2{color:#FDFBF0;font-size:clamp(2rem,4.6vw,3.2rem)}
+  .roots p{color:#DDE7C8;font-size:1.07rem;margin-top:1em}
+  .roots blockquote{font-family:var(--serif);font-style:italic;font-size:clamp(1.4rem,3vw,2rem);
+    line-height:1.28;color:#FDFBF0;border-left:3px solid var(--gold);padding-left:26px;margin:0}
+  .roots cite{display:block;margin-top:16px;font-style:normal;font-family:var(--sans);font-size:.9rem;
+    letter-spacing:.04em;color:#C9E0A6}
+  .roots-stats{display:flex;gap:34px;margin-top:34px;flex-wrap:wrap}
+  .roots-stats b{font-family:var(--serif);font-size:2.2rem;color:var(--gold);display:block;line-height:1}
+  .roots-stats small{font-size:.82rem;color:#DDE7C8;text-transform:uppercase;letter-spacing:.12em}
+  @media(max-width:820px){.roots-grid{grid-template-columns:1fr}}
+
+  /* MENU */
+  .menu-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:38px}
+  .menu-tab{font-family:var(--sans);font-weight:600;font-size:.9rem;padding:.55em 1.15em;border-radius:999px;
+    border:1px solid var(--line);background:transparent;color:var(--ink-soft);cursor:pointer;transition:.18s}
+  .menu-tab:hover{border-color:var(--beet);color:var(--beet)}
+  .menu-tab.on{background:var(--ink);color:var(--linen);border-color:var(--ink)}
+  .menu-cols{columns:2;column-gap:56px}
+  @media(max-width:720px){.menu-cols{columns:1}}
+  .m-cat{break-inside:avoid;margin-bottom:34px}
+  .m-cat h3{font-size:1.05rem;letter-spacing:.14em;text-transform:uppercase;font-family:var(--sans);
+    font-weight:700;color:var(--beet);padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:14px}
+  .m-item{display:flex;align-items:baseline;gap:10px;padding:9px 0}
+  .m-item .nm{font-family:var(--serif);font-size:1.15rem;font-weight:600}
+  .m-item .ds{font-size:.85rem;color:var(--ink-soft);flex-basis:100%;order:3;margin-top:-2px}
+  .m-item .dots{flex:1;border-bottom:1.5px dotted var(--line);transform:translateY(-4px);min-width:16px}
+  .m-item .pr{font-family:var(--sans);font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink)}
+  .m-item .vg{font-size:.62rem;font-weight:800;letter-spacing:.1em;color:var(--leaf);border:1px solid var(--leaf);
+    border-radius:4px;padding:1px 4px;transform:translateY(-2px)}
+  .menu-note{margin-top:8px;font-size:.86rem;color:var(--ink-soft);font-style:italic}
+
+  /* GALLERY */
+  .gal{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .gal .tile{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:1;box-shadow:var(--shadow);
+    display:flex;align-items:flex-end;padding:18px;color:#fff;transition:transform .3s ease}
+  .gal .tile:hover{transform:translateY(-6px) scale(1.015)}
+  .gal .tile.big{grid-row:span 2;aspect-ratio:auto}
+  .gal .tile b{position:relative;z-index:2;font-family:var(--serif);font-size:1.3rem;text-shadow:0 2px 10px rgba(0,0,0,.35)}
+  .gal .tile span{position:relative;z-index:2;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;opacity:.9;display:block}
+  .gal .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.42))}
+  .t-acai{background:radial-gradient(120% 120% at 25% 15%,#7A3C8C,#3B1A52)}
+  .t-rainbow{background:linear-gradient(135deg,#E85D8A,#E3A32B 55%,#7FA046)}
+  .t-juice{background:radial-gradient(120% 120% at 70% 20%,#D64C77,#8A1540)}
+  .t-greens{background:linear-gradient(150deg,#7FA046,#2F4E2A)}
+  .t-toast{background:linear-gradient(140deg,#E3A32B,#B0662B)}
+  .t-dragon{background:radial-gradient(120% 120% at 30% 25%,#F06E93,#C11E5B 60%,#5B2A6B)}
+  @media(max-width:860px){.gal{grid-template-columns:repeat(2,1fr)}.gal .tile.big{grid-row:span 1;aspect-ratio:1}}
+
+  /* LOCATIONS */
+  .locs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .loc{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:var(--shadow);
+    transition:transform .25s ease,border-color .25s ease;position:relative;overflow:hidden}
+  .loc:hover{transform:translateY(-6px);border-color:var(--beet)}
+  .loc::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--beet)}
+  .loc h3{font-size:1.5rem;margin-bottom:4px}
+  .loc .addr{color:var(--ink-soft);font-size:.95rem;margin-bottom:16px}
+  .loc .hrs{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:600;margin-bottom:6px}
+  .loc .hrs .pill{font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    background:color-mix(in srgb,var(--leaf) 18%,transparent);color:var(--leaf);padding:2px 8px;border-radius:999px}
+  .loc .lk{margin-top:18px;display:inline-flex;gap:6px;font-weight:650;color:var(--beet);font-size:.92rem}
+  .loc .lk:hover{gap:11px}
+  @media(max-width:860px){.locs{grid-template-columns:1fr}}
+
+  /* CTA + FOOTER */
+  .cta-band{background:var(--beet);color:#fff;border-radius:30px;padding:clamp(38px,6vw,66px);text-align:center;
+    position:relative;overflow:hidden;box-shadow:var(--shadow)}
+  .cta-band::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 80% 0%,rgba(255,255,255,.16),transparent 60%)}
+  .cta-band h2{color:#fff;font-size:clamp(2rem,5vw,3.2rem);position:relative}
+  .cta-band p{position:relative;opacity:.95;max-width:44ch;margin:14px auto 26px;font-size:1.08rem}
+  .cta-band .btn-primary{background:#fff;color:var(--beet);box-shadow:0 12px 30px -12px rgba(0,0,0,.4)}
+  .cta-band .btn-ghost{border-color:rgba(255,255,255,.55);color:#fff}
+  .cta-band .btn-ghost:hover{background:rgba(255,255,255,.14);color:#fff}
+  footer{padding:clamp(46px,7vw,80px) 0 40px}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:34px;padding-bottom:36px;border-bottom:1px solid var(--line)}
+  .foot-grid h4{font-family:var(--sans);font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px}
+  .foot-grid a{display:block;color:var(--ink-soft);font-size:.94rem;padding:5px 0;transition:color .15s}
+  .foot-grid a:hover{color:var(--beet)}
+  .foot-brand p{color:var(--ink-soft);max-width:30ch;margin-top:12px;font-size:.95rem}
+  .foot-bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;padding-top:26px;font-size:.85rem;color:var(--ink-soft)}
+  @media(max-width:820px){.foot-grid{grid-template-columns:1fr 1fr}}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+  :focus-visible{outline:2.5px solid var(--beet);outline-offset:3px;border-radius:4px}
+</style>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="The Daily Beet home">
+      <svg width="26" height="26" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 39C11 39 6 32 6 25c0-8 6-12 14-12s14 4 14 12c0 7-5 14-14 14Z" fill="#B01E4F"/>
+        <path d="M20 13c-1-5 2-9 6-11-1 5-2 8-6 11Zm0 0c1-5-2-9-6-11 1 5 2 8 6 11Z" fill="#436B3C"/>
+      </svg>
+      <span>The Daily<span class="dot"> Beet</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#menu">Menu</a>
+      <a href="#roots">Our Roots</a>
+      <a href="#locations">Locations</a>
+      <a href="#gallery">The Feed</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="theme-toggle" id="tt" aria-label="Toggle light and dark theme">◐</button>
+      <a href="#order" class="btn btn-primary">Order Pickup</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">New Orleans · Cold-pressed since 2017</span>
+        <h1>From the soil<br>to your <em>bowl.</em></h1>
+        <p class="lede">Plant-forward bowls, cold-pressed juice, and superfood smoothies — built from produce picked up this morning at farms down the road.</p>
+        <div class="hero-cta">
+          <a href="#order" class="btn btn-primary">Order Pickup &rarr;</a>
+          <a href="#menu" class="btn btn-ghost">See the Menu</a>
+        </div>
+        <div class="since">
+          <div><b>3</b>neighborhood cafés</div>
+          <div><b>100%</b>plant-based &amp; vegan-friendly</div>
+          <div><b>Daily</b>farm-fresh deliveries</div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="beet-stage">
+          <div class="halo"></div>
+          <svg class="beet-svg" viewBox="0 0 200 220" fill="none">
+            <g>
+              <path d="M100 60C92 34 96 14 78 2c-4 22 4 40 22 58Z" fill="#4E7A3E"/>
+              <path d="M100 60c8-30 4-48-24-58 2 24-2 44 24 58Z" fill="#436B3C"/>
+              <path d="M100 62C96 40 108 22 132 16c-6 22-14 36-32 46Z" fill="#5A8A47"/>
+              <path d="M100 62C104 40 92 22 68 16c6 22 14 36 32 46Z" fill="#3C6234"/>
+            </g>
+            <path d="M100 68c34 0 62 22 62 58 0 46-36 86-62 86S38 172 38 126c0-36 28-58 62-58Z" fill="#B01E4F"/>
+            <path d="M100 68c22 0 40 10 51 27-14 8-33 12-51 12s-37-4-51-12c11-17 29-27 51-27Z" fill="#C93764"/>
+            <path d="M100 212c-6-14-4-30 0-40 4 10 6 26 0 40Z" fill="#8A1540"/>
+            <ellipse cx="80" cy="120" rx="12" ry="16" fill="#D64C77" opacity=".55"/>
+          </svg>
+          <svg class="fresh-badge" viewBox="0 0 120 120">
+            <defs><path id="cir" d="M60 60 m-44 0 a44 44 0 1 1 88 0 a44 44 0 1 1 -88 0"/></defs>
+            <circle cx="60" cy="60" r="30" class="core"/>
+            <path d="M60 44c-2-8 2-14 9-17-1 8-3 13-9 17Z" fill="#436B3C"/>
+            <text><textPath href="#cir" startOffset="0">FRESH TODAY · PICKED THIS MORNING · </textPath></text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-row">
+      <span>Beets</span><span>Açaí</span><span>Cold-Pressed Ginger</span><span>Local Kale</span><span>Turmeric</span><span>Dragon Fruit</span><span>Avocado</span><span>Matcha</span>
+      <span>Beets</span><span>Açaí</span><span>Cold-Pressed Ginger</span><span>Local Kale</span><span>Turmeric</span><span>Dragon Fruit</span><span>Avocado</span><span>Matcha</span>
+    </div>
+  </div>
+
+  <!-- ROOTS -->
+  <section class="roots sec-pad" id="roots">
+    <div class="wrap roots-grid">
+      <div class="reveal">
+        <span class="eyebrow">Our Roots</span>
+        <h2>We grew up in the kitchen.</h2>
+        <p>The Daily Beet opened on Girod Street in 2017 with one idea: New Orleans deserved real, honest food that happens to be good for you. We partner with local farms so the produce in your bowl travels miles, not months — flavor first, always plant-forward.</p>
+        <div class="roots-stats">
+          <div><b>2017</b><small>First café</small></div>
+          <div><b>Local</b><small>Farm partners</small></div>
+          <div><b>Zero</b><small>Shortcuts</small></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <blockquote>
+          "There's a lack of healthy food in this city. We wanted to change that — one bowl at a time."
+          <cite>— Dylan Maisel, Founder</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="sec-pad" id="menu">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">The Menu</span>
+        <h2>Built fresh, all day.</h2>
+        <p>A plant-centric lineup of bowls, toasts, cold-pressed juice, and superfood smoothies. Vegan-friendly across the board.</p>
+      </div>
+      <div class="menu-tabs reveal" role="tablist" aria-label="Menu categories">
+        <button class="menu-tab on">All</button>
+        <button class="menu-tab">Bowls</button>
+        <button class="menu-tab">Toasts</button>
+        <button class="menu-tab">Juice &amp; Smoothies</button>
+        <button class="menu-tab">Sweets</button>
+      </div>
+      <div class="menu-cols reveal">
+        <div class="m-cat">
+          <h3>Bowls</h3>
+          <div class="m-item"><span class="nm">Açaí Bowl</span><span class="vg">VG</span><span class="dots"></span><span class="pr">$12.25</span><span class="ds">Açaí, banana, house granola, seasonal fruit, honey.</span></div>
+          <div class="m-item"><span class="nm">Orbit Bowl</span><span class="vg">VG</span><span class="dots"></span><span class="pr">$13.50</span><span class="ds">Quinoa, roasted sweet potato, greens, tahini-lemon.</span></div>
+          <div class="m-item"><span class="nm">Rainbow Bowl</span><span class="vg">VG</span><span class="dots"></span><span class="pr">$13.00</span><span class="ds">Rainbow veg, brown rice, chickpeas, ginger-miso.</span></div>
+          <div class="m-item"><span class="nm">Beet Grain Bowl</span><span class="vg">VG</span><span class="dots"></span><span class="pr">$13.50</span><span class="ds">Roasted beets, farro, arugula, citrus vinaigrette.</span></div>
+        </div>
+        <div class="m-cat">
+          <h3>Toasts</h3>
+          <div class="m-item"><span class="nm">Avocado Toast</span><span class="vg">VG</span><span class="dots"></span><span class="pr">$10.00</span><span class="ds">Smashed avocado, chili flake, lemon, seeds on sourdough.</span></div>
+          <div class="m-item"><span class="nm">Almond Butter Toast</span><span class="vg">VG</span><span class="dots"></span><span class="pr">$9.00</span><span class="ds">Almond butter, banana, hemp seeds, cinnamon.</span></div>
+        </div>
+        <div class="m-cat">
+          <h3>Cold-Pressed Juice</h3>
+          <div class="m-item"><span class="nm">The Daily Beet</span><span class="vg">VG</span><span class="dots"></span><span class="pr">$9.50</span><span class="ds">Beet, apple, carrot, ginger, lemon.</span></div>
+          <div class="m-item"><span class="nm">Green Machine</span><span class="vg">VG</span><span class="dots"></span><span class="pr">$9.50</span><span class="ds">Kale, cucumber, celery, green apple, lemon.</span></div>
+          <div class="m-item"><span class="nm">Immunity Shot</span><span class="vg">VG</span><span class="dots"></span><span class="pr">$4.00</span><span class="ds">Ginger, turmeric, lemon, cayenne.</span></div>
+        </div>
+        <div class="m-cat">
+          <h3>Superfood Smoothies</h3>
+          <div class="m-item"><span class="nm">Dragon Fruit Glow</span><span class="vg">VG</span><span class="dots"></span><span class="pr">$11.00</span><span class="ds">Pitaya, mango, coconut water, lime.</span></div>
+          <div class="m-item"><span class="nm">Matcha Mylk</span><span class="vg">VG</span><span class="dots"></span><span class="pr">$10.50</span><span class="ds">Ceremonial matcha, banana, almond milk, dates.</span></div>
+        </div>
+        <div class="m-cat">
+          <h3>Sweets &amp; Bites</h3>
+          <div class="m-item"><span class="nm">Energy Bites</span><span class="vg">VG</span><span class="dots"></span><span class="pr">$4.50</span><span class="ds">Almond butter &amp; chocolate chip, oats, flax.</span></div>
+          <div class="m-item"><span class="nm">Dragon Fruit Chia Pudding</span><span class="vg">VG</span><span class="dots"></span><span class="pr">$7.00</span><span class="ds">Chia, coconut, pitaya, fresh berries.</span></div>
+        </div>
+      </div>
+      <p class="menu-note reveal">Menu shown is representative for this preview — real prices &amp; seasonal items would sync from your POS.</p>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="sec-pad" id="gallery" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">The Feed</span>
+        <h2>Almost too pretty to eat.</h2>
+        <p>Every bowl leaves the counter camera-ready. This grid would pull straight from your Instagram.</p>
+      </div>
+      <div class="gal reveal">
+        <div class="tile big t-acai"><div><span>Bowls</span><b>Açaí, layered</b></div></div>
+        <div class="tile t-rainbow"><div><span>Signature</span><b>Rainbow Bowl</b></div></div>
+        <div class="tile t-juice"><div><span>Cold-pressed</span><b>The Daily Beet</b></div></div>
+        <div class="tile t-greens"><div><span>Juice</span><b>Green Machine</b></div></div>
+        <div class="tile t-toast"><div><span>All day</span><b>Avo Toast</b></div></div>
+        <div class="tile big t-dragon"><div><span>Smoothie</span><b>Dragon Fruit Glow</b></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIONS -->
+  <section class="sec-pad" id="locations" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Find Us</span>
+        <h2>Three cafés, one standard.</h2>
+        <p>Order ahead for pickup, or pull up a stool and watch the juice get pressed.</p>
+      </div>
+      <div class="locs">
+        <div class="loc reveal">
+          <h3>Girod Street</h3>
+          <div class="addr">1000 Girod St · New Orleans, LA</div>
+          <div class="hrs"><span class="pill">Open</span> 8 AM – 4 PM · Daily</div>
+          <a href="#order" class="lk">Order from Girod &rarr;</a>
+        </div>
+        <div class="loc reveal">
+          <h3>Magazine Street</h3>
+          <div class="addr">3300 Magazine St · Uptown, New Orleans</div>
+          <div class="hrs"><span class="pill">Open late</span> 8 AM – 8 PM · Daily</div>
+          <a href="#order" class="lk">Order from Magazine &rarr;</a>
+        </div>
+        <div class="loc reveal">
+          <h3>Fayetteville</h3>
+          <div class="addr">339 N West Ave · Fayetteville, AR</div>
+          <div class="hrs"><span class="pill">Open</span> 8 AM – 4 PM · Daily</div>
+          <a href="#order" class="lk">Order from Fayetteville &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="wrap" id="order" style="padding-bottom:clamp(66px,9vw,110px)">
+    <div class="cta-band reveal">
+      <h2>Hungry yet?</h2>
+      <p>Skip the line. Build your bowl, pay ahead, and grab it warm off the counter.</p>
+      <div class="hero-cta" style="justify-content:center">
+        <a href="#" class="btn btn-primary">Start an Order &rarr;</a>
+        <a href="#" class="btn btn-ghost">Download the App</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#top" style="font-size:1.4rem">
+          <svg width="24" height="24" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 39C11 39 6 32 6 25c0-8 6-12 14-12s14 4 14 12c0 7-5 14-14 14Z" fill="#B01E4F"/><path d="M20 13c-1-5 2-9 6-11-1 5-2 8-6 11Zm0 0c1-5-2-9-6-11 1 5 2 8 6 11Z" fill="#436B3C"/></svg>
+          <span>The Daily<span class="dot"> Beet</span></span>
+        </a>
+        <p>Plant-forward food &amp; cold-pressed juice, made in New Orleans since 2017.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="#menu">Menu</a><a href="#roots">Our Roots</a><a href="#locations">Locations</a><a href="#gallery">The Feed</a>
+      </div>
+      <div>
+        <h4>Order</h4>
+        <a href="#order">Pickup</a><a href="#order">Delivery</a><a href="#order">Catering</a><a href="#order">Gift Cards</a>
+      </div>
+      <div>
+        <h4>Say Hi</h4>
+        <a href="#">Instagram</a><a href="#">Facebook</a><a href="mailto:hello@thedailybeetnola.com">Email us</a><a href="tel:+15046054413">(504) 605-4413</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 The Daily Beet · New Orleans, LA</span>
+      <span>Design preview · From the soil to your bowl.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var tt=document.getElementById('tt');
+    if(tt){tt.addEventListener('click',function(){
+      var root=document.documentElement;
+      var cur=root.getAttribute('data-theme');
+      if(!cur){cur=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';}
+      root.setAttribute('data-theme',cur==='dark'?'light':'dark');
+    });}
+    var tabs=document.querySelectorAll('.menu-tab');
+    tabs.forEach(function(t){t.addEventListener('click',function(){
+      tabs.forEach(function(x){x.classList.remove('on');});t.classList.add('on');});});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  })();
+</script>
+</body>
+</html>
