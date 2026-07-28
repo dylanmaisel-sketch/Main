@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Daily Beet — Smoothie Launch Audience Signal</title>
+<meta name="description" content="What the wellness-smoothie audience actually saves vs. just buzzes about — adaptogens & health-benefit framings ranked by reach and buy-intent.">
+<style>
+  :root{
+    color-scheme: light;
+    --paper:#faf7f2; --card:#fffdf9; --ink:#1c140f; --ink-2:#5c534a; --muted:#8b8177;
+    --line:#e7ddd0; --line-2:#d8ccbb; --grid:#ece3d6;
+    --beet:#B01E4F; --beet-soft:#f6dfe7; --leaf:#3f7d3a; --gold:#c98a12;
+    --c-benefit:#1baf7a; --c-adapt:#eb6834; --c-base:#2a78d6;
+    --surface:#fffdf9;
+    --shadow:0 1px 2px rgba(28,20,15,.05),0 8px 28px rgba(28,20,15,.06);
+  }
+  @media (prefers-color-scheme: dark){:root:where(:not([data-theme="light"])){
+    color-scheme:dark;
+    --paper:#12100e;--card:#1b1815;--ink:#f7f2ea;--ink-2:#c3b8ab;--muted:#948a7d;
+    --line:#2c2723;--line-2:#3a332d;--grid:#251f1a;
+    --beet:#f0568a;--beet-soft:#3a1a26;--leaf:#7cc077;--gold:#e0ab3a;
+    --c-benefit:#199e70;--c-adapt:#d95926;--c-base:#3987e5;--surface:#1b1815;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+  }}
+  :root[data-theme="dark"]{
+    color-scheme:dark;
+    --paper:#12100e;--card:#1b1815;--ink:#f7f2ea;--ink-2:#c3b8ab;--muted:#948a7d;
+    --line:#2c2723;--line-2:#3a332d;--grid:#251f1a;
+    --beet:#f0568a;--beet-soft:#3a1a26;--leaf:#7cc077;--gold:#e0ab3a;
+    --c-benefit:#199e70;--c-adapt:#d95926;--c-base:#3987e5;--surface:#1b1815;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+  .serif{font-family:"Palatino Linotype","Book Antiqua",Palatino,Georgia,serif}
+  .wrap{max-width:1000px;margin:0 auto;padding:clamp(20px,4vw,52px) clamp(18px,4vw,40px)}
+  a{color:var(--beet);text-decoration:none}a:hover{text-decoration:underline}
+
+  .kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--beet);font-weight:600}
+  h1{font-size:clamp(28px,5vw,46px);line-height:1.05;margin:.34em 0 .16em;font-weight:600;letter-spacing:-.01em}
+  .dek{font-size:clamp(16px,2.1vw,20px);color:var(--ink-2);max-width:66ch;margin:0}
+  .meta-line{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);
+    display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12.5px;color:var(--muted)}
+  .meta-line b{color:var(--ink-2);font-weight:600}
+
+  .lede{margin:30px 0 6px;padding:20px 22px;background:var(--beet-soft);border-radius:14px;
+    border:1px solid color-mix(in srgb,var(--beet) 22%,transparent)}
+  .lede p{margin:0;font-size:clamp(16px,2.2vw,19px);line-height:1.5}
+  .lede .em{color:var(--beet);font-weight:600}
+
+  section{margin:40px 0}
+  h2{font-size:clamp(20px,2.8vw,25px);font-weight:600;margin:0 0 4px;letter-spacing:-.01em}
+  h2 .n{color:var(--beet);font-variant-numeric:tabular-nums;margin-right:.5em;font-size:.8em}
+  .sub2{color:var(--ink-2);margin:0 0 18px;max-width:72ch;font-size:15px}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:20px 20px 16px;box-shadow:var(--shadow)}
+  figure{margin:0}
+  .chart-title{font-size:14.5px;font-weight:600;margin:0 0 1px}
+  .chart-cap{font-size:12.5px;color:var(--muted);margin:0 0 8px}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .pt-label{font:600 11px system-ui,sans-serif;fill:var(--ink)}
+  .ax{font:11px system-ui;fill:var(--muted)}
+  .axttl{font:600 11.5px system-ui;fill:var(--ink-2)}
+  .qlab{font:700 10px system-ui;letter-spacing:.08em;text-transform:uppercase}
+
+  .legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;padding-top:12px;
+    border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-2)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .sw{width:11px;height:11px;border-radius:50%;display:inline-block}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr}}
+  .col h3{font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 10px;color:var(--muted)}
+  .li{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px;line-height:1.45}
+  .li:last-child{border-bottom:0}
+  .li .tk{flex:0 0 auto;font-weight:600;color:var(--ink)}
+  .li .bd{color:var(--ink-2)}
+  .tag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap}
+  .t-go{color:var(--leaf);background:color-mix(in srgb,var(--leaf) 14%,transparent)}
+  .t-caution{color:var(--c-adapt);background:color-mix(in srgb,var(--c-adapt) 14%,transparent)}
+
+  .plays{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+  @media(max-width:720px){.plays{grid-template-columns:1fr}}
+  .play{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--beet);
+    border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+  .play h4{margin:0 0 5px;font-size:14.5px}
+  .play p{margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.5}
+  .play .t{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--leaf);font-weight:700}
+  .play.avoid{border-left-color:var(--c-adapt)}
+  .play.avoid .t{color:var(--c-adapt)}
+
+  .note{margin-top:16px;font-size:13px;color:var(--ink-2);
+    background:color-mix(in srgb,var(--gold) 12%,transparent);
+    border:1px solid color-mix(in srgb,var(--gold) 28%,transparent);border-radius:10px;padding:12px 15px}
+  .note b{color:var(--ink)}
+  footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--muted);line-height:1.6}
+  footer b{color:var(--ink-2)}footer ul{margin:8px 0;padding-left:18px}
+  .rung{margin-top:22px;padding:18px 20px;border:1px dashed var(--line-2);border-radius:12px;background:var(--card)}
+  .rung .t{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--beet);font-weight:700}
+  .rung p{margin:6px 0 0;font-size:14px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">Waldo Audience Signal · Smoothie Launch</div>
+    <h1 class="serif">What your audience saves — vs. what they just talk about</h1>
+    <p class="dek">Live TikTok &amp; X conversation on functional smoothie ingredients, ranked two ways: <b>reach</b> (how big the conversation is) and <b>buy-intent</b> (how often people <i>save</i> the recipe — the truest signal of "I'll actually make this").</p>
+    <div class="meta-line">
+      <span><b>Source:</b> Waldo discover · TikTok (sorted by likes, trailing year) + X</span>
+      <span><b>Sample:</b> 11 ingredient/benefit queries · ~19 top posts each</span>
+      <span><b>For:</b> The Daily Beet</span>
+    </div>
+  </header>
+
+  <div class="lede">
+    <p><span class="em">Buzz and buy-intent are two different maps.</span> The named adaptogens your audience talks about most — <b>ashwagandha, sea&nbsp;moss, lion's&nbsp;mane</b> — sit at the bottom: high awareness, almost nobody saves the recipe. What they actually save is framed as a <b>benefit</b>: "anti-inflammatory," "gut health," "hormone balance." Put the ingredient in the cup; sell the feeling on the menu.</p>
+  </div>
+
+  <!-- CHART -->
+  <section>
+    <h2><span class="n">01</span>The buzz-vs-intent map</h2>
+    <p class="sub2">Each ingredient plotted by total reach (likes, log scale) against save-intent (saves per 1,000 views). Up-and-right is the launch sweet spot: big conversation <i>and</i> high recipe intent. Bottom row is buzzword territory — loud, but nobody's making it.</p>
+    <div class="card">
+      <figure>
+        <p class="chart-title">Reach × recipe-save intent, functional smoothie ingredients</p>
+        <p class="chart-cap">Color = how the ingredient shows up in conversation · label = search term</p>
+        <svg viewBox="0 0 760 440" role="img" aria-label="Scatter plot of smoothie ingredients by reach and save-intent">
+          <!-- quadrant fills -->
+          <rect x="331.7" y="28" width="278.3" height="238.7" fill="var(--c-benefit)" opacity="0.05"/>
+          <!-- grid -->
+          <g stroke="var(--grid)" stroke-width="1">
+            <line x1="64" y1="266.7" x2="610" y2="266.7"/>
+            <line x1="64" y1="147.3" x2="610" y2="147.3"/>
+            <line x1="64" y1="28" x2="610" y2="28"/>
+          </g>
+          <!-- quadrant dividers -->
+          <line x1="331.7" y1="28" x2="331.7" y2="386" stroke="var(--line-2)" stroke-width="1" stroke-dasharray="3 3"/>
+          <line x1="64" y1="266.7" x2="610" y2="266.7" stroke="var(--line-2)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <!-- axes -->
+          <line x1="64" y1="386" x2="610" y2="386" stroke="var(--line-2)" stroke-width="1.5"/>
+          <line x1="64" y1="28" x2="64" y2="386" stroke="var(--line-2)" stroke-width="1.5"/>
+          <!-- x ticks -->
+          <g text-anchor="middle" class="ax">
+            <text x="145.9" y="402">10K</text>
+            <text x="351.7" y="402">100K</text>
+            <text x="557.5" y="402">1M</text>
+          </g>
+          <text x="337" y="424" text-anchor="middle" class="axttl">Reach — total likes on top posts (log)  →</text>
+          <!-- y ticks -->
+          <g text-anchor="end" class="ax">
+            <text x="58" y="270">15</text>
+            <text x="58" y="151">30</text>
+            <text x="58" y="32">45</text>
+          </g>
+          <text x="20" y="207" text-anchor="middle" class="axttl" transform="rotate(-90,20,207)">Buy-intent — saves / 1K views  →</text>
+          <!-- quadrant labels -->
+          <text x="600" y="46" text-anchor="end" class="qlab" fill="var(--c-benefit)">Saved &amp; big — the sweet spot</text>
+          <text x="600" y="380" text-anchor="end" class="qlab" fill="var(--muted)">Big reach · low intent</text>
+          <text x="72" y="380" class="qlab" fill="var(--muted)">Just buzz</text>
+
+          <!-- points: r=6, 2px surface ring -->
+          <g stroke="var(--surface)" stroke-width="2">
+            <circle cx="427.6" cy="51.9"  r="7" fill="var(--c-benefit)"/>
+            <circle cx="374.5" cy="216.5" r="7" fill="var(--c-benefit)"/>
+            <circle cx="262.6" cy="109.1" r="7" fill="var(--c-benefit)"/>
+            <circle cx="214.6" cy="191.1" r="6" fill="var(--c-benefit)"/>
+            <circle cx="594.9" cy="253.9" r="8" fill="var(--c-base)"/>
+            <circle cx="591.1" cy="289.7" r="8" fill="var(--c-base)"/>
+            <circle cx="339.8" cy="340.7" r="6" fill="var(--c-adapt)"/>
+            <circle cx="241.7" cy="355.8" r="6" fill="var(--c-adapt)"/>
+            <circle cx="216.7" cy="337.5" r="6" fill="var(--c-adapt)"/>
+            <circle cx="111.7" cy="164.0" r="5" fill="var(--c-adapt)"/>
+            <circle cx="94.0"  cy="366.9" r="5" fill="var(--c-adapt)"/>
+          </g>
+          <!-- labels -->
+          <g class="pt-label">
+            <text x="418" y="49"  text-anchor="end">Anti-inflammatory ★</text>
+            <text x="384" y="220" text-anchor="start">Gut health</text>
+            <text x="272" y="106" text-anchor="start">Hormone balance</text>
+            <text x="224" y="188" text-anchor="start">Adaptogen (generic)</text>
+            <text x="585" y="251" text-anchor="end">Protein</text>
+            <text x="581" y="293" text-anchor="end">Matcha</text>
+            <text x="349" y="344" text-anchor="start">Sea moss</text>
+            <text x="251" y="359" text-anchor="start">Lion's mane</text>
+            <text x="207" y="341" text-anchor="end">Collagen</text>
+            <text x="121" y="161" text-anchor="start">Moringa</text>
+            <text x="103" y="370" text-anchor="start">Ashwagandha</text>
+          </g>
+        </svg>
+      </figure>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--c-benefit)"></i>Benefit framing (outcome-led)</span>
+        <span><i class="sw" style="background:var(--c-adapt)"></i>Named adaptogen / additive</span>
+        <span><i class="sw" style="background:var(--c-base)"></i>Mainstream base</span>
+      </div>
+    </div>
+    <div class="note"><b>The pattern that matters:</b> orange (named adaptogens) sits low on intent almost without exception — ashwagandha 2.4, lion's&nbsp;mane 3.8, sea&nbsp;moss 5.7 saves/1K. Green (benefit framings) sits high — anti-inflammatory <b>42</b>, hormone balance <b>35</b>, gut health <b>21</b>. The one crossover, <b>moringa</b>, is high-intent but tiny reach — a nice "secret ingredient" story, not a headline.</div>
+  </section>
+
+  <!-- SENTIMENT -->
+  <section>
+    <h2><span class="n">02</span>How they talk about it — the tone check</h2>
+    <p class="sub2">Reach doesn't tell you if the buzz is safe to build on. Reading the actual X conversation, two groups split cleanly on <i>conviction</i>.</p>
+    <div class="grid2">
+      <div class="col card">
+        <h3>Safe to lean on</h3>
+        <div class="li"><span class="tag t-go">warm</span><div class="bd"><b class="tk">Ashwagandha</b> — genuinely beloved <i>as a supplement</i>: "started taking it and immediately stopped being depressed" (32K likes). But the talk is about pills &amp; dosing, not smoothies — borrow the halo, don't headline it.</div></div>
+        <div class="li"><span class="tag t-go">high intent</span><div class="bd"><b class="tk">Anti-inflammatory</b> — the top post is hibiscus <i>agua de jamaica</i>: deep-red, botanical, recipe-native. On-brand and the #1 save-magnet.</div></div>
+        <div class="li"><span class="tag t-go">high intent</span><div class="bd"><b class="tk">Gut health</b> — "debloat," "power house for your gut," framed as everyday and easy. Big and saved.</div></div>
+      </div>
+      <div class="col card">
+        <h3>Handle with care</h3>
+        <div class="li"><span class="tag t-caution">skeptical</span><div class="bd"><b class="tk">Sea moss</b> — the conversation is mostly <i>questions</i>: "what are the benefits?", "is it worth the hype?" Curiosity, not conviction. Low save intent.</div></div>
+        <div class="li"><span class="tag t-caution">caution</span><div class="bd"><b class="tk">Ashwagandha (claims)</b> — a real dosing-anxiety undertone: "takes your cortisol to zero," "people say it makes you numb." Naming a benefit on the menu invites the argument.</div></div>
+        <div class="li"><span class="tag t-caution">saturated</span><div class="bd"><b class="tk">Collagen / lion's mane</b> — steady awareness, thin recipe pull. Fine as an add-in, weak as a hook.</div></div>
+      </div>
+    </div>
+    <div class="note"><b>Rule for the menu copy:</b> name the ingredient, describe the <i>feeling</i> ("calm," "glow," "debloat"), and skip the medical claim. The audience saves outcomes and argues with claims.</div>
+  </section>
+
+  <!-- RECOMMENDATION -->
+  <section>
+    <h2><span class="n">03</span>The launch call</h2>
+    <p class="sub2">Where the intent, the tone, and The Daily Beet's crimson-and-farm-to-table identity all point at the same cup.</p>
+    <div class="plays">
+      <div class="play">
+        <span class="t">Lead SKU</span>
+        <h4>A crimson anti-inflammatory smoothie</h4>
+        <p>Highest save-intent lane (42/1K) <i>and</i> your namesake color — beet + hibiscus + ginger + a squeeze of citrus. The one benefit the monochrome-green category can't own visually, and the top-performing posts are already deep red.</p>
+      </div>
+      <div class="play">
+        <span class="t">Ride the reach</span>
+        <h4>Pair the benefit with a protein or matcha base</h4>
+        <p>Protein (1.5M) and matcha (1.45M) are the mainstream volume anchors. A "gut-glow" matcha or a protein-forward variant rides that reach while the benefit framing keeps it differentiated.</p>
+      </div>
+      <div class="play">
+        <span class="t">Secret ingredient</span>
+        <h4>Moringa as the quiet flex</h4>
+        <p>Tiny reach but 28/1K save-intent — a credible "you've-never-tried-this" add-in for the in-the-know regular. A story, not a headline.</p>
+      </div>
+      <div class="play avoid">
+        <span class="t">Don't headline</span>
+        <h4>Ashwagandha / sea moss on the marquee</h4>
+        <p>Huge buzz, low recipe pull, and a claims-argument waiting to happen. Offer them as a <b>+$1 booster</b> for the crowd that already wants them — capture the search traffic without betting the launch on it.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rung">
+    <span class="t">The next rung</span>
+    <p>This is a one-time read. Trends move fast in this space — "cortisol cocktail" was everywhere three months ago and barely registered in this pull. The natural next step is a <b>weekly ingredient-trend tracker</b>: the same queries on a schedule, flagging any ingredient whose save-intent jumps week-over-week, so your menu leads the trend instead of chasing it. Want me to build it into the repo as a script that prints a fresh ranked table each run?</p>
+  </div>
+
+  <footer>
+    <b>Method &amp; honesty.</b> Live Waldo discover pulls, TikTok sorted by likes over the trailing year (≈19 top posts per query), cross-checked against X top posts for tone.
+    <ul>
+      <li><b>Intent = saves ÷ views × 1,000</b> on the top-post set per term — a directional signal of recipe intent, not a census.</li>
+      <li><b>Engagement isn't cross-platform comparable</b> and top-post sampling skews toward hits; read positions relative to each other, not as absolute market size.</li>
+      <li><b>"Cortisol cocktail" and "maca" returned no in-window results</b> as phrased — treat as low-signal here, not proof of zero interest.</li>
+      <li><b>Sentiment is read qualitatively</b> from top posts, not a scored distribution — the tone notes are illustrative.</li>
+    </ul>
+    Everything else pullable — per-platform search, creators, communities: <a href="https://data.waldo.fyi/v1/docs">data.waldo.fyi/v1/docs</a>.
+  </footer>
+
+</div>
+</body>
+</html>
