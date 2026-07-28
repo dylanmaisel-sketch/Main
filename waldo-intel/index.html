@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Daily Beet — Competitive Intelligence Teardown</title>
+<meta name="description" content="Paid, owned & earned intelligence on the plant-forward café set — Sweetgreen, Pura Vida, Life Alive — and where The Daily Beet's whitespace sits.">
+<style>
+  :root{
+    color-scheme: light;
+    --paper:#faf7f2; --card:#fffdf9; --ink:#1c140f; --ink-2:#5c534a; --muted:#8b8177;
+    --line:#e7ddd0; --line-2:#d8ccbb;
+    --beet:#B01E4F; --beet-soft:#f6dfe7; --leaf:#3f7d3a; --gold:#c98a12;
+    /* validated categorical (dataviz reference, light) */
+    --sg:#2a78d6; --pv:#eb6834; --la:#1baf7a;
+    /* diverging sentiment */
+    --pos:#0ca30c; --neg:#d03b3b; --neu:#c9beb0;
+    --shadow: 0 1px 2px rgba(28,20,15,.05), 0 8px 28px rgba(28,20,15,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])){
+      color-scheme: dark;
+      --paper:#12100e; --card:#1b1815; --ink:#f7f2ea; --ink-2:#c3b8ab; --muted:#948a7d;
+      --line:#2c2723; --line-2:#3a332d;
+      --beet:#f0568a; --beet-soft:#3a1a26; --leaf:#7cc077; --gold:#e0ab3a;
+      --sg:#3987e5; --pv:#d95926; --la:#199e70;
+      --pos:#0ca30c; --neg:#e66767; --neu:#4a423a;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --paper:#12100e; --card:#1b1815; --ink:#f7f2ea; --ink-2:#c3b8ab; --muted:#948a7d;
+    --line:#2c2723; --line-2:#3a332d;
+    --beet:#f0568a; --beet-soft:#3a1a26; --leaf:#7cc077; --gold:#e0ab3a;
+    --sg:#3987e5; --pv:#d95926; --la:#199e70;
+    --pos:#0ca30c; --neg:#e66767; --neu:#4a423a;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;
+    letter-spacing:.005em;
+  }
+  .serif{font-family:"Palatino Linotype","Book Antiqua",Palatino,Georgia,serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:clamp(20px,4vw,56px) clamp(18px,4vw,40px)}
+  a{color:var(--beet);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* header */
+  .kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--beet);font-weight:600}
+  h1.title{font-size:clamp(30px,5.4vw,52px);line-height:1.04;margin:.34em 0 .18em;font-weight:600;letter-spacing:-.01em}
+  .dek{font-size:clamp(17px,2.2vw,21px);color:var(--ink-2);max-width:64ch;margin:.2em 0 0}
+  .meta-line{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);
+    display:flex;flex-wrap:wrap;gap:8px 20px;font-size:12.5px;color:var(--muted);letter-spacing:.02em}
+  .meta-line b{color:var(--ink-2);font-weight:600}
+
+  /* headline finding */
+  .lede{margin:34px 0 8px;padding:22px 24px;background:var(--beet-soft);
+    border-radius:14px;border:1px solid color-mix(in srgb,var(--beet) 22%,transparent)}
+  .lede p{margin:0;font-size:clamp(17px,2.3vw,20px);line-height:1.5}
+  .lede .em{color:var(--beet);font-weight:600}
+
+  /* stat tiles */
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:28px 0}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;box-shadow:var(--shadow)}
+  .tile .lab{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .tile .val{font-size:clamp(30px,4.5vw,40px);font-weight:600;line-height:1.05;margin:.18em 0 .05em;letter-spacing:-.01em}
+  .tile .sub{font-size:13px;color:var(--ink-2)}
+  .tile .sub .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+
+  /* sections */
+  section{margin:44px 0}
+  h2{font-size:clamp(21px,3vw,27px);font-weight:600;margin:0 0 4px;letter-spacing:-.01em}
+  .sub2{color:var(--ink-2);margin:0 0 22px;max-width:70ch;font-size:15.5px}
+  h2 .n{color:var(--beet);font-variant-numeric:tabular-nums;margin-right:.5em;font-size:.8em;font-weight:600}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr}}
+  .card h3{font-size:14px;margin:0 0 2px;font-weight:600}
+  .card .cap{font-size:12.5px;color:var(--muted);margin:0 0 18px}
+
+  /* bar rows */
+  .row{display:grid;grid-template-columns:96px 1fr auto;align-items:center;gap:12px;margin:11px 0}
+  .row .rl{font-size:13px;color:var(--ink-2);font-weight:500;text-align:right}
+  .track{position:relative;height:22px;background:color-mix(in srgb,var(--line) 55%,transparent);border-radius:5px;overflow:hidden}
+  .fill{position:absolute;top:0;left:0;height:100%;border-radius:5px;min-width:3px}
+  .row .rv{font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink);font-weight:600;min-width:38px;text-align:right}
+
+  /* stacked sentiment */
+  .sbar{display:flex;height:26px;border-radius:6px;overflow:hidden;background:var(--line);margin:6px 0 3px}
+  .seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;min-width:2px}
+  .snet{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+  .snet b{color:var(--ink);font-variant-numeric:tabular-nums}
+
+  /* diverging net-sentiment */
+  .dv{position:relative;height:30px;margin:8px 0}
+  .dv .mid{position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--line-2)}
+  .dv .db{position:absolute;top:5px;height:20px;border-radius:4px}
+  .dv-lab{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:2px}
+
+  /* legend */
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-2)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:11px;height:11px;border-radius:3px;display:inline-block}
+
+  /* tone chips */
+  .tone{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .chip{font-size:12.5px;padding:5px 11px;border-radius:20px;border:1px solid var(--line-2);
+    display:inline-flex;gap:7px;align-items:center;background:var(--card)}
+  .chip b{font-variant-numeric:tabular-nums;color:var(--ink)}
+  .chip .c{color:var(--ink-2)}
+
+  /* whitespace / play cards */
+  .plays{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+  @media(max-width:720px){.plays{grid-template-columns:1fr}}
+  .play{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--beet);
+    border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+  .play h4{margin:0 0 5px;font-size:14.5px}
+  .play p{margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.5}
+  .play .tag{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--leaf);font-weight:700}
+
+  /* callout */
+  .note{margin-top:14px;font-size:13px;color:var(--ink-2);background:color-mix(in srgb,var(--gold) 12%,transparent);
+    border:1px solid color-mix(in srgb,var(--gold) 28%,transparent);border-radius:10px;padding:12px 15px}
+  .note b{color:var(--ink)}
+
+  /* footer */
+  footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);line-height:1.6}
+  footer b{color:var(--ink-2)}
+  footer ul{margin:8px 0;padding-left:18px}
+  .rung{margin-top:22px;padding:18px 20px;border:1px dashed var(--line-2);border-radius:12px;background:var(--card)}
+  .rung .tag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--beet);font-weight:700}
+  .rung p{margin:6px 0 0;font-size:14px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">Waldo Brand Intelligence · Competitive Teardown</div>
+    <h1 class="title serif">The plant-forward café set, by the numbers</h1>
+    <p class="dek">What your three named benchmarks — Sweetgreen, Pura&nbsp;Vida, Life&nbsp;Alive — <b>publish</b>, <b>pay for</b>, and get <b>said about them</b>. And where <span style="color:var(--beet);font-weight:600">The Daily Beet</span> can plant a flag they've left open.</p>
+    <div class="meta-line">
+      <span><b>Window:</b> trailing 30 days to Jul&nbsp;28,&nbsp;2026</span>
+      <span><b>Set:</b> 3 brands · 128 ad creatives seen · 183 mentions</span>
+      <span><b>Source:</b> Waldo <span style="font-variant-numeric:tabular-nums">data.waldo.fyi</span></span>
+    </div>
+  </header>
+
+  <div class="lede">
+    <p><span class="em">Paid is a one-horse race.</span> Sweetgreen is running <b>74 live creatives</b> across Meta and LinkedIn right now. Pura&nbsp;Vida and Life&nbsp;Alive are running <b>zero</b> — the two "soul" brands in your set compete entirely on owned posts and word of mouth. The premium paid lane against your namesake rivals is empty.</p>
+  </div>
+
+  <div class="tiles">
+    <div class="tile">
+      <div class="lab">Sweetgreen · Share of Voice</div>
+      <div class="val">68<span style="font-size:.6em">%</span></div>
+      <div class="sub"><span class="dot" style="background:var(--sg)"></span>125 mentions — 2 of every 3 in the set</div>
+    </div>
+    <div class="tile">
+      <div class="lab">Sweetgreen · Net Sentiment</div>
+      <div class="val" style="color:var(--neg)">+21<span style="font-size:.6em">%</span></div>
+      <div class="sub">26% of mentions negative — a food-safety drag</div>
+    </div>
+    <div class="tile">
+      <div class="lab">Life Alive · Net Sentiment</div>
+      <div class="val" style="color:var(--pos)">+59<span style="font-size:.6em">%</span></div>
+      <div class="sub">Cleanest earned signal, smallest volume</div>
+    </div>
+    <div class="tile">
+      <div class="lab">Sweetgreen · Discount Rate</div>
+      <div class="val">7<span style="font-size:.6em">%</span></div>
+      <div class="sub">5 of 74 ads promotional — they sell on quality, not price</div>
+    </div>
+  </div>
+
+  <!-- EARNED -->
+  <section>
+    <h2><span class="n">01</span>The earned conversation</h2>
+    <p class="sub2">Who the world is talking about, and how it feels about them. Volume buys reach; sentiment buys trust — and here they pull in opposite directions.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Share of voice</h3>
+        <p class="cap">Mentions across X, TikTok, Instagram, Reddit, Facebook, LinkedIn & news, trailing 30d</p>
+        <div class="row"><div class="rl">Sweetgreen</div><div class="track"><div class="fill" style="width:100%;background:var(--sg)"></div></div><div class="rv">125</div></div>
+        <div class="row"><div class="rl">Pura Vida</div><div class="track"><div class="fill" style="width:24.8%;background:var(--pv)"></div></div><div class="rv">31</div></div>
+        <div class="row"><div class="rl">Life Alive</div><div class="track"><div class="fill" style="width:21.6%;background:var(--la)"></div></div><div class="rv">27</div></div>
+        <div class="note" style="margin-top:16px">Sweetgreen's volume is real, but <b>Twitter/X (59)</b> and <b>news (18)</b> drive it — much of it the outbreak story below. Pura&nbsp;Vida and Life&nbsp;Alive live on <b>TikTok & Instagram</b>, where the tone is review-and-discovery.</div>
+      </div>
+      <div class="card">
+        <h3>Sentiment mix &amp; net score</h3>
+        <p class="cap">Scored mentions only · net = (positive − negative) ÷ total</p>
+
+        <div style="margin-bottom:16px">
+          <div style="font-size:13px;color:var(--ink-2);font-weight:500;margin-bottom:1px">Sweetgreen</div>
+          <div class="sbar"><div class="seg" style="width:46.4%;background:var(--pos)">46%</div><div class="seg" style="width:28%;background:var(--neu);color:var(--ink)">28%</div><div class="seg" style="width:25.6%;background:var(--neg)">26%</div></div>
+          <div class="snet">Net <b style="color:var(--neg)">+20.8%</b> · 58 pos · 35 neu · 32 neg</div>
+        </div>
+        <div style="margin-bottom:16px">
+          <div style="font-size:13px;color:var(--ink-2);font-weight:500;margin-bottom:1px">Pura Vida</div>
+          <div class="sbar"><div class="seg" style="width:67.7%;background:var(--pos)">68%</div><div class="seg" style="width:29%;background:var(--neu);color:var(--ink)">29%</div><div class="seg" style="width:3.3%;background:var(--neg)"></div></div>
+          <div class="snet">Net <b style="color:var(--pos)">+64.5%</b> · 21 pos · 9 neu · 1 neg</div>
+        </div>
+        <div>
+          <div style="font-size:13px;color:var(--ink-2);font-weight:500;margin-bottom:1px">Life Alive</div>
+          <div class="sbar"><div class="seg" style="width:63%;background:var(--pos)">63%</div><div class="seg" style="width:33.3%;background:var(--neu);color:var(--ink)">33%</div><div class="seg" style="width:3.7%;background:var(--neg)"></div></div>
+          <div class="snet">Net <b style="color:var(--pos)">+59.3%</b> · 17 pos · 9 neu · 1 neg</div>
+        </div>
+
+        <div class="legend">
+          <span><i class="sw" style="background:var(--pos)"></i>Positive</span>
+          <span><i class="sw" style="background:var(--neu)"></i>Neutral</span>
+          <span><i class="sw" style="background:var(--neg)"></i>Negative</span>
+        </div>
+      </div>
+    </div>
+    <div class="note"><b>The tell:</b> Sweetgreen's mention themes are led by <b>food-safety, public-health, outbreak-response</b> — and "cyclospora" even surfaces in its <i>own</i> posts. The category's biggest name is spending reach to manage a trust story. That's the exact anxiety your "from the soil to your bowl" farm-to-table promise answers.</div>
+  </section>
+
+  <!-- PAID -->
+  <section>
+    <h2><span class="n">02</span>The paid playbook</h2>
+    <p class="sub2">Only Sweetgreen buys media in this set — so this is a teardown of the one brand shaping the paid category, and a map of the lanes nobody is contesting.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Live creatives running</h3>
+        <p class="cap">Ad-library creatives active in-window, by platform</p>
+        <div class="row"><div class="rl">Sweetgreen</div><div class="track"><div class="fill" style="width:100%;background:var(--sg)"></div></div><div class="rv">74</div></div>
+        <div class="row"><div class="rl">Pura Vida</div><div class="track"><div class="fill" style="width:0"></div></div><div class="rv">0</div></div>
+        <div class="row"><div class="rl">Life Alive</div><div class="track"><div class="fill" style="width:0"></div></div><div class="rv">0</div></div>
+        <div class="note" style="margin-top:16px"><b>44 on Meta</b> (Facebook/Instagram/Threads) · <b>30 on LinkedIn</b>. The LinkedIn buy is the surprise — Sweetgreen is selling the <b>work lunch</b> to office managers, not just the feed.</div>
+      </div>
+      <div class="card">
+        <h3>What Sweetgreen's ads sound like</h3>
+        <p class="cap">Creative tone across 74 ads (Waldo per-ad analysis)</p>
+        <div class="tone">
+          <span class="chip"><b>25</b><span class="c">aspirational</span></span>
+          <span class="chip"><b>18</b><span class="c">informational</span></span>
+          <span class="chip"><b>17</b><span class="c">promotional</span></span>
+          <span class="chip"><b>10</b><span class="c">celebratory</span></span>
+          <span class="chip"><b>2</b><span class="c">authoritative</span></span>
+          <span class="chip"><b>2</b><span class="c">other</span></span>
+        </div>
+        <h3 style="margin-top:20px">Top angles</h3>
+        <p class="cap">The recurring pitch behind the creative</p>
+        <div class="row" style="grid-template-columns:150px 1fr auto"><div class="rl">Workplace convenience</div><div class="track"><div class="fill" style="width:100%;background:var(--sg)"></div></div><div class="rv">6</div></div>
+        <div class="row" style="grid-template-columns:150px 1fr auto"><div class="rl">Seasonal indulgence</div><div class="track"><div class="fill" style="width:50%;background:var(--sg)"></div></div><div class="rv">3</div></div>
+        <div class="row" style="grid-template-columns:150px 1fr auto"><div class="rl">Summer freshness</div><div class="track"><div class="fill" style="width:50%;background:var(--sg)"></div></div><div class="rv">3</div></div>
+        <div class="row" style="grid-template-columns:150px 1fr auto"><div class="rl">New location opening</div><div class="track"><div class="fill" style="width:33%;background:var(--sg)"></div></div><div class="rv">2</div></div>
+      </div>
+    </div>
+    <div class="note"><b>Read it as a posture:</b> premium, ingredient-transparent, convenience-led, and <b>almost never discounting</b> (7% of ads). Their creative is about <i>protein, wraps, and the office</i> — clean and functional. What it is <i>not</i>: warm, local, place-rooted, or indulgent-as-ritual. That absence is your opening.</div>
+  </section>
+
+  <!-- WHITESPACE -->
+  <section>
+    <h2><span class="n">03</span>The whitespace for The Daily Beet</h2>
+    <p class="sub2">Across all three, the owned themes converge on the same words — <b>summer, matcha, café, smoothies</b>. The category is monochrome-green. Your README thesis holds up in the data: crimson, beet, and New Orleans soul are unclaimed.</p>
+    <div class="plays">
+      <div class="play">
+        <span class="tag">Own the color</span>
+        <h4>Crimson in a green category</h4>
+        <p>Every competitor's palette and themes cluster around wellness-green and pastel. Beet crimson (#B01E4F) is a namesake asset none of them can copy — lean the whole identity on it, as Concept A already does.</p>
+      </div>
+      <div class="play">
+        <span class="tag">Own the trust story</span>
+        <h4>Farm-to-table, credibly</h4>
+        <p>The market leader is fielding food-safety mentions. "From the soil to your bowl" isn't a tagline here — it's a direct answer to the category's live anxiety. Make sourcing and provenance visible and specific.</p>
+      </div>
+      <div class="play">
+        <span class="tag">Own the place</span>
+        <h4>New Orleans as a moat</h4>
+        <p>Sweetgreen sells the office lunch; Pura Vida sells Miami; Life Alive sells Boston. Place is a real wedge. NOLA soul — a city no wellness chain owns — is defensible in a way "healthy" never is.</p>
+      </div>
+      <div class="play">
+        <span class="tag">Own the channel</span>
+        <h4>Earned-first, like your rivals</h4>
+        <p>The two brands closest to your size run <b>zero paid</b> and post daily to TikTok &amp; Instagram at +60% net sentiment. That's the proven playbook at your scale — creator-led discovery, not a media budget.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rung">
+    <span class="tag">The next rung</span>
+    <p>This is a single 30-day cut. The natural next step is <b>ongoing creative-change tracking</b> — a weekly diff of Sweetgreen's live ad set so you see new hooks the day they launch, plus a <b>sentiment-swing alert</b> that pings when the food-safety mention share spikes (your best earned-media moment). Both are a few lines against the same API. Want me to wire the monitor into this repo as a script that prints a fresh brief on each run?</p>
+  </div>
+
+  <footer>
+    <b>Method &amp; honesty.</b> All figures are live pulls from the Waldo Brand Intelligence API over the trailing 30 days to Jul&nbsp;28,&nbsp;2026.
+    <ul>
+      <li><b>No spend or performance data.</b> Ad figures are creative counts from public ad libraries — impressions, spend, and CTR are <i>not</i> available and nothing here implies performance.</li>
+      <li><b>Sentiment is on scored mentions only.</b> Unscored items aren't counted as neutral; percentages are of the scored set.</li>
+      <li><b>Engagement isn't cross-platform comparable.</b> Volume is directional, not a like-for-like leaderboard.</li>
+      <li><b>Zero paid is a finding, not a gap.</b> Pura Vida &amp; Life Alive genuinely run no tracked ad-library creatives in-window.</li>
+    </ul>
+    Full spec &amp; everything else pullable (audience signal, timeseries, per-post detail): <a href="https://data.waldo.fyi/v1/docs">data.waldo.fyi/v1/docs</a>.
+  </footer>
+
+</div>
+</body>
+</html>
