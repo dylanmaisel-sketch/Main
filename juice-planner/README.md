@@ -14,7 +14,7 @@ Tells the juicer how many bottles of **Pure Greens, NOLA Greens and Roots** to p
 - **Forecast.** For each shop, juice and day, it averages the same weekday over the last 6 weeks of completed Square orders. Recent weeks count more (weights 3,3,2,2,1,1). In-store, kiosk and online orders are all included.
 - **Wellness Kits.** Each kit counts as one Roots plus one greens. Square doesn't record which greens the customer picks, so the greens are split by how NOLA and Pure sell at that shop.
 - **Buffer.** It adds 10% (`buffer_pct`).
-- **Leftovers.** Cooler bottles are subtracted, but only as many as can sell before they expire.
+- **Leftovers.** The juicer counts only bottles that don't expire by tomorrow, since anything expiring today or tomorrow is likely to go to waste. Counted bottles are subtracted, credited against sales through the day after tomorrow.
 - **Produce.** Amounts match the recipe sheet exactly at its standard batch sizes (12/14 qt and 20 qt). Between and beyond those sizes they scale in a straight line. Weights round to ¼ lb. One bottle is 12 oz, so 8 bottles make 3 quarts.
 
 All of these settings are in `config.json`.

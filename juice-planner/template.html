@@ -160,7 +160,8 @@ const fmtDay = (s, opts = { weekday: "short", month: "short", day: "numeric" }) 
 const uberPct = (loc, j) => typeof PLAN.uber_eats_pct === "number" ? PLAN.uber_eats_pct : ((PLAN.uber_eats_pct[loc] || {})[j] || 0);
 const buffer = 1 + PLAN.buffer_pct / 100;
 const goodThrough = (made) => addDays(made, PLAN.shelf_life_days - 1);
-const leftoverGoodThrough = goodThrough(PLAN.previous_juice_day);
+// Only bottles that don't expire by tomorrow get counted, so each one is good through at least the day after tomorrow.
+const leftoverGoodThrough = addDays(PLAN.juice_day, 2);
 
 const storeKey = "onhand-" + PLAN.juice_day;
 let onHand = {};
@@ -219,8 +220,9 @@ $("facts").innerHTML =
   `<span>Today's bottles good through <b>${fmtDay(goodThrough(PLAN.juice_day))}</b></span>` +
   `<span>Magazine + Girod Street</span>`;
 $("cooler-note").textContent =
-  `Bottles from ${fmtDay(PLAN.previous_juice_day)} are good through ${fmtDay(leftoverGoodThrough)}. ` +
-  `Count only those; they get sold first and the plan only credits what can sell before they expire.`;
+  `Only count bottles that don't expire by tomorrow (${fmtDay(addDays(PLAN.juice_day, 1))}). ` +
+  `Bottles expiring today or tomorrow are likely to go to waste, so leave them out. ` +
+  `Sell counted bottles first; the plan credits them against sales through ${fmtDay(leftoverGoodThrough)}.`;
 $("bottle-head").textContent = `${PLAN.bottle_oz} oz bottles, both shops`;
 
 /* step 1 */
