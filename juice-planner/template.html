@@ -1,0 +1,308 @@
+<title>Daily Beet Juice Plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: a prep sheet read top to bottom at the press — count the cooler, see bottles, then the press list in machine order. */
+:root {
+  --bg: #F2F5F0;
+  --surface: #FFFFFF;
+  --fg: #1C2920;
+  --muted: #58685D;
+  --line: #D3DCD4;
+  --pure: #2F7A45;
+  --nola: #7A9A1E;
+  --roots: #A3243B;
+  --ginger: #B7791F;
+  --warn: #9A5B00;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111713; --surface: #19211C; --fg: #E5EDE6; --muted: #98A99D; --line: #2B372F;
+    --pure: #6CC488; --nola: #B5D35A; --roots: #EE7187; --ginger: #E3A84F; --warn: #F0B35C;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111713; --surface: #19211C; --fg: #E5EDE6; --muted: #98A99D; --line: #2B372F;
+  --pure: #6CC488; --nola: #B5D35A; --roots: #EE7187; --ginger: #E3A84F; --warn: #F0B35C;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 1rem; line-height: 1.5;
+}
+.wrap {
+  max-width: 60rem; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 1.75rem 3rem;
+  display: grid; gap: 2.25rem;
+}
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; line-height: 1.1; }
+h1 { font-size: clamp(2rem, 6vw, 3rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: 1.35rem; font-weight: 600; }
+h3 { font-size: 1.15rem; font-weight: 600; }
+p { margin: 0; }
+.eyebrow { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.muted { color: var(--muted); }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+header { display: grid; gap: 0.5rem; }
+.facts { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; color: var(--muted); font-size: 0.95rem; }
+.facts b { color: var(--fg); }
+
+.step { display: grid; gap: 1rem; }
+.step-head { display: grid; gap: 0.25rem; }
+
+/* juice identity colour */
+.j-pure { --c: var(--pure); } .j-nola { --c: var(--nola); } .j-roots { --c: var(--roots); } .j-ginger { --c: var(--ginger); }
+.dot { display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--c); margin-right: 0.45rem; vertical-align: 0.05em; }
+
+/* step 1: cooler counts */
+.cooler { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
+.shop { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; display: grid; gap: 0.75rem; }
+.count-row { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.count-row label { font-weight: 700; }
+.stepper { display: flex; align-items: center; gap: 0.25rem; }
+.stepper button {
+  width: 2.75rem; height: 2.75rem; border-radius: 8px; border: 1px solid var(--line); background: var(--bg);
+  color: var(--fg); font-size: 1.4rem; font-family: var(--mono); cursor: pointer;
+}
+.stepper button:active { transform: translateY(1px); }
+.stepper input {
+  width: 3.5rem; height: 2.75rem; text-align: center; font: 600 1.15rem var(--mono); color: var(--fg);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+}
+button:focus-visible, input:focus-visible { outline: 3px solid var(--c, var(--pure)); outline-offset: 2px; }
+.note { font-size: 0.9rem; color: var(--muted); }
+
+/* step 2: totals */
+.totals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.total { border-top: 6px solid var(--c); background: var(--surface); border-radius: 0 0 10px 10px; padding: 1rem; display: grid; gap: 0.35rem; }
+.total .big { font: 800 clamp(2.4rem, 8vw, 3.4rem)/1 var(--display); font-variant-numeric: tabular-nums; }
+.total .split { font-size: 0.9rem; color: var(--muted); }
+@media (max-width: 40rem) { .totals { grid-template-columns: 1fr; } .total { grid-template-columns: 1fr auto; align-items: end; } .total .big { grid-row: span 2; order: 2; } }
+
+/* step 3: press list */
+.press { display: grid; gap: 1rem; }
+.run { background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--c); border-radius: 10px; padding: 1rem 1.1rem; display: grid; gap: 0.75rem; }
+.run-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.25rem 1rem; }
+.run-head .qt { color: var(--muted); }
+.ing { width: 100%; border-collapse: collapse; }
+.ing td { padding: 0.45rem 0; border-top: 1px solid var(--line); }
+.ing td:last-child { text-align: right; font-family: var(--mono); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ing .sub { display: block; font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+.skip { color: var(--muted); }
+
+details { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem 1.1rem; }
+summary { cursor: pointer; font-weight: 700; }
+.table-scroll { overflow-x: auto; margin-top: 0.75rem; }
+.fc { border-collapse: collapse; min-width: 30rem; width: 100%; font-size: 0.92rem; }
+.fc th, .fc td { padding: 0.4rem 0.5rem; text-align: right; border-bottom: 1px solid var(--line); }
+.fc th:first-child, .fc td:first-child { text-align: left; }
+.fc th { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.how { display: grid; gap: 0.5rem; margin-top: 0.75rem; max-width: 65ch; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">The Daily Beet · Juice plan</span>
+    <h1 id="title">Juice day</h1>
+    <div class="facts" id="facts"></div>
+  </header>
+
+  <section class="step">
+    <div class="step-head">
+      <span class="eyebrow">First</span>
+      <h2>Count what's left in each cooler</h2>
+      <p class="note" id="cooler-note"></p>
+    </div>
+    <div class="cooler" id="cooler"></div>
+  </section>
+
+  <section class="step">
+    <div class="step-head">
+      <span class="eyebrow">Bottles to press today</span>
+      <h2 id="bottle-head">12 oz bottles</h2>
+    </div>
+    <div class="totals" id="totals"></div>
+  </section>
+
+  <section class="step">
+    <div class="step-head">
+      <span class="eyebrow">Press list, in machine order</span>
+      <h2>Produce to weigh out</h2>
+      <p class="note">Ginger first, then Pure Greens and NOLA Greens without cleaning. Rinse and change the bag before Roots.</p>
+    </div>
+    <div class="press" id="press"></div>
+  </section>
+
+  <details>
+    <summary>How these numbers are worked out</summary>
+    <div class="how" id="how"></div>
+    <div class="table-scroll"><table class="fc" id="fc"></table></div>
+  </details>
+</div>
+
+<script>
+const PLAN = __PLAN_DATA__;
+const CLS = { "Pure Greens": "j-pure", "NOLA Greens": "j-nola", "Roots": "j-roots" };
+const $ = (id) => document.getElementById(id);
+const parse = (s) => new Date(s + "T12:00:00");
+const addDays = (s, n) => { const d = parse(s); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
+const fmtDay = (s, opts = { weekday: "short", month: "short", day: "numeric" }) => parse(s).toLocaleDateString("en-US", opts);
+const uber = 1 + PLAN.uber_eats_pct / 100;
+const buffer = 1 + PLAN.buffer_pct / 100;
+const goodThrough = (made) => addDays(made, PLAN.shelf_life_days - 1);
+const leftoverGoodThrough = goodThrough(PLAN.previous_juice_day);
+
+const storeKey = "onhand-" + PLAN.juice_day;
+let onHand = {};
+try { onHand = JSON.parse(localStorage.getItem(storeKey) || "{}"); } catch (e) { onHand = {}; }
+const saveOnHand = () => { try { localStorage.setItem(storeKey, JSON.stringify(onHand)); } catch (e) {} };
+const key = (loc, j) => loc + "|" + j;
+
+/* demand math */
+function plan(loc, juice) {
+  const days = PLAN.forecast[loc][juice];
+  const demand = PLAN.window.reduce((s, d) => s + days[d], 0) * uber;
+  const early = PLAN.window.filter((d) => d <= leftoverGoodThrough).reduce((s, d) => s + days[d], 0) * uber;
+  const have = onHand[key(loc, juice)] || 0;
+  const usable = Math.min(have, Math.floor(early));
+  const make = Math.max(0, Math.ceil(demand * buffer - usable));
+  return { demand, usable, have, make };
+}
+
+/* recipe scaling: exact at your standard batch sizes, straight-line between and beyond them */
+function scale(points, q) {
+  const [a, b] = points;
+  if (q <= a[0]) return a[1] * q / a[0];
+  if (q >= b[0]) return b[1] * q / b[0];
+  return a[1] + (b[1] - a[1]) * (q - a[0]) / (b[0] - a[0]);
+}
+function amountsFor(recipe, quarts) {
+  const [s, l] = recipe.batches;
+  const out = [];
+  for (const name of Object.keys(s.ingredients)) {
+    const unit = s.ingredients[name][1];
+    const v = scale([[s.quarts, s.ingredients[name][0]], [l.quarts, l.ingredients[name][0]]], quarts);
+    out.push({ name, unit, v });
+  }
+  const gj = scale([[s.quarts, recipe.ginger_juice_cups[0]], [l.quarts, recipe.ginger_juice_cups[1]]], quarts);
+  return { items: out, gingerCups: gj };
+}
+const frac = { 0: "", 0.25: "¼", 0.5: "½", 0.75: "¾" };
+function fmtCups(v) {
+  const q = Math.max(0.25, Math.round(v * 4) / 4);
+  const w = Math.floor(q), f = frac[q - w];
+  return (w ? w : "") + f + (q <= 1 ? " cup" : " cups");
+}
+function fmtAmount(v, unit) {
+  if (unit === "lb") return (Math.round(v * 4) / 4).toFixed(2).replace(/\.?0+$/, "") + " lb";
+  if (unit === "each") return Math.ceil(v) + " apples";
+  if (unit === "cup") return fmtCups(v);
+  return v.toFixed(1) + " " + unit;
+}
+
+/* header */
+const winStart = PLAN.window[0], winEnd = PLAN.window[PLAN.window.length - 1];
+$("title").textContent = fmtDay(PLAN.juice_day, { weekday: "long", month: "long", day: "numeric" });
+$("facts").innerHTML =
+  `<span>Covers <b>${fmtDay(winStart)} – ${fmtDay(winEnd)}</b></span>` +
+  `<span>Today's bottles good through <b>${fmtDay(goodThrough(PLAN.juice_day))}</b></span>` +
+  `<span>Magazine + Girod Street</span>`;
+$("cooler-note").textContent =
+  `Bottles from ${fmtDay(PLAN.previous_juice_day)} are good through ${fmtDay(leftoverGoodThrough)}. ` +
+  `Count only those; they get sold first and the plan only credits what can sell before they expire.`;
+$("bottle-head").textContent = `${PLAN.bottle_oz} oz bottles, both shops`;
+
+/* step 1 */
+function buildCooler() {
+  $("cooler").innerHTML = PLAN.locations.map((loc) => `
+    <div class="shop">
+      <h3>${loc}</h3>
+      ${PLAN.juice_order.map((j) => {
+        const id = ("oh-" + loc + "-" + j).replace(/\W+/g, "-").toLowerCase();
+        return `<div class="count-row ${CLS[j]}">
+          <label for="${id}"><span class="dot"></span>${j}</label>
+          <div class="stepper">
+            <button type="button" aria-label="One fewer ${j} at ${loc}" data-k="${key(loc, j)}" data-d="-1">−</button>
+            <input id="${id}" inputmode="numeric" pattern="[0-9]*" value="${onHand[key(loc, j)] || 0}" data-k="${key(loc, j)}">
+            <button type="button" aria-label="One more ${j} at ${loc}" data-k="${key(loc, j)}" data-d="1">+</button>
+          </div>
+        </div>`;
+      }).join("")}
+    </div>`).join("");
+  $("cooler").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-k]"); if (!b) return;
+    const k = b.dataset.k;
+    onHand[k] = Math.max(0, (onHand[k] || 0) + Number(b.dataset.d));
+    document.querySelector(`input[data-k="${CSS.escape(k)}"]`).value = onHand[k];
+    saveOnHand(); update();
+  });
+  $("cooler").addEventListener("input", (e) => {
+    const i = e.target.closest("input[data-k]"); if (!i) return;
+    onHand[i.dataset.k] = Math.max(0, parseInt(i.value, 10) || 0);
+    saveOnHand(); update();
+  });
+}
+
+/* steps 2 and 3 */
+function update() {
+  const totals = {};
+  for (const j of PLAN.juice_order) {
+    const per = PLAN.locations.map((loc) => ({ loc, ...plan(loc, j) }));
+    totals[j] = { per, make: per.reduce((s, p) => s + p.make, 0) };
+  }
+  $("totals").innerHTML = PLAN.juice_order.map((j) => `
+    <div class="total ${CLS[j]}">
+      <span class="eyebrow"><span class="dot"></span>${j}</span>
+      <span class="big">${totals[j].make}</span>
+      <span class="split">${totals[j].per.map((p) => `${p.loc} ${p.make}`).join(" · ")}</span>
+    </div>`).join("");
+
+  let gingerLb = 0, gingerCups = 0;
+  const runs = PLAN.juice_order.map((j) => {
+    const bottles = totals[j].make;
+    const quarts = bottles * PLAN.bottle_oz / 32;
+    if (!bottles) return `<div class="run ${CLS[j]}"><div class="run-head"><h3>${j}</h3><span class="skip">Skip today, the cooler covers it</span></div></div>`;
+    const a = amountsFor(PLAN.recipes[j], quarts);
+    const g = a.items.find((i) => i.name === "Ginger");
+    if (g) gingerLb += Math.round(g.v * 4) / 4;
+    gingerCups += a.gingerCups;
+    const rows = a.items.map((i) => `<tr><td>${i.name}${i.name === "Ginger" ? `<span class="sub">or ${fmtCups(a.gingerCups)} pressed ginger juice</span>` : ""}</td><td>${fmtAmount(i.v, i.unit)}</td></tr>`).join("");
+    return `<div class="run ${CLS[j]}">
+      <div class="run-head"><h3>${j}</h3><span class="qt num">${bottles} bottles · ${quarts.toFixed(1)} qt</span></div>
+      <table class="ing">${rows}</table>
+    </div>`;
+  });
+  const ginger = gingerLb > 0 ? `<div class="run j-ginger">
+      <div class="run-head"><h3>Ginger</h3><span class="qt">Press first, enough for every juice below</span></div>
+      <table class="ing"><tr><td>Whole ginger<span class="sub">or ${fmtCups(gingerCups)} pressed ginger juice in total</span></td><td>${fmtAmount(gingerLb, "lb")}</td></tr></table>
+    </div>` : "";
+  $("press").innerHTML = ginger + runs.join("");
+}
+
+/* explainer */
+function buildHow() {
+  $("how").innerHTML = `
+    <p>Each day's forecast is the average of the same weekday over the last ${PLAN.history_weeks} weeks of Square sales (through ${fmtDay(PLAN.history_through)}), weighting recent weeks more. It includes in-store, kiosk and online orders, and opens each Wellness Kit into one Roots plus a greens.</p>
+    <p>The plan adds a ${PLAN.buffer_pct}% buffer${PLAN.uber_eats_pct ? ` and ${PLAN.uber_eats_pct}% for Uber Eats, which isn't in Square` : ". Uber Eats isn't counted yet because those orders don't reach Square"}. Then it subtracts the cooler bottles that can sell before they expire.</p>
+    <p>Produce amounts match your recipe sheet exactly at its standard batch sizes and scale in a straight line between and beyond them. Weights are rounded to the nearest quarter pound.</p>`;
+  const head = `<tr><th>Shop / juice</th>${PLAN.window.map((d) => `<th>${fmtDay(d, { weekday: "short" })}</th>`).join("")}<th>Total</th></tr>`;
+  const body = PLAN.locations.flatMap((loc) => PLAN.juice_order.map((j) => {
+    const f = PLAN.forecast[loc][j];
+    const t = PLAN.window.reduce((s, d) => s + f[d], 0);
+    return `<tr><td>${loc} · ${j}</td>${PLAN.window.map((d) => `<td class="num">${f[d].toFixed(1)}</td>`).join("")}<td class="num">${t.toFixed(1)}</td></tr>`;
+  })).join("");
+  $("fc").innerHTML = `<thead>${head}</thead><tbody>${body}</tbody>`;
+}
+
+buildCooler(); update(); buildHow();
+</script>

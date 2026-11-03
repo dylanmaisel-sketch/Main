@@ -1,0 +1,106 @@
+{
+  "timezone": "America/Chicago",
+  "bottle_oz": 12,
+  "shelf_life_days": 5,
+  "juice_days": ["Monday", "Friday"],
+  "history_weeks": 6,
+  "recency_weights": [3, 3, 2, 2, 1, 1],
+  "buffer_pct": 10,
+  "uber_eats_pct": 0,
+
+  "locations": {
+    "93S6KDD6EVAM5": "Magazine",
+    "XPFY0SK1E7T99": "Girod Street"
+  },
+
+  "juice_order": ["Pure Greens", "NOLA Greens", "Roots"],
+
+  "kits": {
+    "Wellness Kit": {
+      "Roots": 1,
+      "greens_choice": ["NOLA Greens", "Pure Greens"]
+    }
+  },
+
+  "recipes": {
+    "Pure Greens": {
+      "batches": [
+        {
+          "quarts": 12,
+          "ingredients": {
+            "Cucumber": [15, "lb"],
+            "Celery": [9, "lb"],
+            "Kale": [4, "lb"],
+            "Ginger": [1, "lb"],
+            "Lemon juice": [1.25, "cup"]
+          }
+        },
+        {
+          "quarts": 20,
+          "ingredients": {
+            "Cucumber": [26, "lb"],
+            "Celery": [15, "lb"],
+            "Kale": [8, "lb"],
+            "Ginger": [2, "lb"],
+            "Lemon juice": [2, "cup"]
+          }
+        }
+      ],
+      "ginger_juice_cups": [0.75, 1.5]
+    },
+    "NOLA Greens": {
+      "batches": [
+        {
+          "quarts": 14,
+          "ingredients": {
+            "Cucumber": [15, "lb"],
+            "Celery": [9, "lb"],
+            "Apples": [16, "each"],
+            "Kale": [4, "lb"],
+            "Ginger": [1, "lb"],
+            "Lemon juice": [1.25, "cup"]
+          }
+        },
+        {
+          "quarts": 20,
+          "ingredients": {
+            "Cucumber": [22, "lb"],
+            "Celery": [13, "lb"],
+            "Apples": [24, "each"],
+            "Kale": [8, "lb"],
+            "Ginger": [2, "lb"],
+            "Lemon juice": [2, "cup"]
+          }
+        }
+      ],
+      "ginger_juice_cups": [0.75, 1.5]
+    },
+    "Roots": {
+      "batches": [
+        {
+          "quarts": 12,
+          "ingredients": {
+            "Carrots": [16, "lb"],
+            "Apples": [6, "lb"],
+            "Beets": [3.5, "lb"],
+            "Celery": [5, "lb"],
+            "Ginger": [1, "lb"],
+            "Lemon juice": [0.5, "cup"]
+          }
+        },
+        {
+          "quarts": 20,
+          "ingredients": {
+            "Carrots": [30, "lb"],
+            "Apples": [12, "lb"],
+            "Beets": [10, "lb"],
+            "Celery": [10, "lb"],
+            "Ginger": [2, "lb"],
+            "Lemon juice": [2, "cup"]
+          }
+        }
+      ],
+      "ginger_juice_cups": [0.5, 1.5]
+    }
+  }
+}
