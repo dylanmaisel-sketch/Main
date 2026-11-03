@@ -1,0 +1,178 @@
+date,location,item,qty
+2026-09-01,Girod Street,NOLA Greens,2.0
+2026-09-01,Girod Street,Pure Greens,2.0
+2026-09-01,Girod Street,Wellness Kit,1.0
+2026-09-01,Magazine,Roots,1.0
+2026-09-02,Girod Street,NOLA Greens,1.0
+2026-09-02,Girod Street,Wellness Kit,1.0
+2026-09-02,Magazine,Roots,1.0
+2026-09-03,Girod Street,Pure Greens,2.0
+2026-09-03,Magazine,Wellness Kit,1.0
+2026-09-05,Girod Street,Pure Greens,2.0
+2026-09-05,Girod Street,Wellness Kit,1.0
+2026-09-05,Magazine,NOLA Greens,1.0
+2026-09-05,Magazine,Wellness Kit,1.0
+2026-09-06,Girod Street,Wellness Kit,2.0
+2026-09-06,Magazine,Roots,2.0
+2026-09-07,Magazine,Pure Greens,1.0
+2026-09-07,Magazine,Wellness Kit,1.0
+2026-09-08,Girod Street,Roots,1.0
+2026-09-08,Magazine,Roots,1.0
+2026-09-09,Girod Street,NOLA Greens,1.0
+2026-09-09,Girod Street,Pure Greens,2.0
+2026-09-09,Girod Street,Wellness Kit,1.0
+2026-09-09,Magazine,NOLA Greens,1.0
+2026-09-10,Magazine,NOLA Greens,1.0
+2026-09-10,Magazine,Pure Greens,1.0
+2026-09-10,Magazine,Roots,1.0
+2026-09-11,Girod Street,NOLA Greens,1.0
+2026-09-11,Girod Street,Pure Greens,1.0
+2026-09-11,Magazine,Pure Greens,1.0
+2026-09-11,Magazine,Roots,1.0
+2026-09-12,Girod Street,Wellness Kit,1.0
+2026-09-12,Magazine,NOLA Greens,2.0
+2026-09-12,Magazine,Roots,2.0
+2026-09-13,Girod Street,Wellness Kit,2.0
+2026-09-13,Magazine,Pure Greens,3.0
+2026-09-13,Magazine,Wellness Kit,1.0
+2026-09-14,Girod Street,Roots,1.0
+2026-09-14,Magazine,Roots,1.0
+2026-09-15,Girod Street,Pure Greens,1.0
+2026-09-15,Magazine,NOLA Greens,4.0
+2026-09-15,Magazine,Pure Greens,1.0
+2026-09-15,Magazine,Wellness Kit,1.0
+2026-09-16,Girod Street,NOLA Greens,1.0
+2026-09-16,Girod Street,Pure Greens,2.0
+2026-09-16,Girod Street,Roots,2.0
+2026-09-16,Girod Street,Wellness Kit,1.0
+2026-09-18,Girod Street,NOLA Greens,1.0
+2026-09-18,Magazine,NOLA Greens,1.0
+2026-09-19,Girod Street,Pure Greens,1.0
+2026-09-19,Magazine,NOLA Greens,3.0
+2026-09-19,Magazine,Roots,2.0
+2026-09-20,Girod Street,NOLA Greens,2.0
+2026-09-20,Magazine,NOLA Greens,1.0
+2026-09-20,Magazine,Pure Greens,2.0
+2026-09-20,Magazine,Roots,1.0
+2026-09-21,Girod Street,Wellness Kit,1.0
+2026-09-21,Magazine,NOLA Greens,3.0
+2026-09-21,Magazine,Roots,1.0
+2026-09-22,Girod Street,NOLA Greens,1.0
+2026-09-22,Girod Street,Pure Greens,2.0
+2026-09-22,Magazine,Roots,3.0
+2026-09-23,Girod Street,NOLA Greens,2.0
+2026-09-23,Girod Street,Roots,3.0
+2026-09-23,Magazine,NOLA Greens,1.0
+2026-09-23,Magazine,Roots,2.0
+2026-09-24,Girod Street,NOLA Greens,1.0
+2026-09-24,Girod Street,Pure Greens,1.0
+2026-09-24,Girod Street,Roots,1.0
+2026-09-24,Magazine,Pure Greens,2.0
+2026-09-24,Magazine,Wellness Kit,1.0
+2026-09-25,Girod Street,Pure Greens,1.0
+2026-09-25,Magazine,NOLA Greens,2.0
+2026-09-25,Magazine,Pure Greens,3.0
+2026-09-26,Girod Street,NOLA Greens,1.0
+2026-09-26,Girod Street,Pure Greens,1.0
+2026-09-26,Magazine,NOLA Greens,2.0
+2026-09-26,Magazine,Wellness Kit,1.0
+2026-09-27,Magazine,Pure Greens,1.0
+2026-09-27,Magazine,Roots,1.0
+2026-09-28,Girod Street,Pure Greens,2.0
+2026-09-29,Girod Street,Roots,6.0
+2026-09-30,Girod Street,Pure Greens,1.0
+2026-09-30,Magazine,Roots,1.0
+2026-10-01,Magazine,Pure Greens,2.0
+2026-10-01,Magazine,Wellness Kit,2.0
+2026-10-02,Girod Street,Pure Greens,1.0
+2026-10-02,Girod Street,Roots,1.0
+2026-10-02,Magazine,Pure Greens,3.0
+2026-10-03,Girod Street,NOLA Greens,3.0
+2026-10-03,Girod Street,Wellness Kit,1.0
+2026-10-03,Magazine,Pure Greens,3.0
+2026-10-04,Girod Street,Roots,2.0
+2026-10-04,Magazine,Pure Greens,5.0
+2026-10-04,Magazine,Roots,1.0
+2026-10-05,Girod Street,NOLA Greens,2.0
+2026-10-05,Magazine,Pure Greens,2.0
+2026-10-05,Magazine,Roots,1.0
+2026-10-05,Magazine,Wellness Kit,1.0
+2026-10-06,Girod Street,NOLA Greens,4.0
+2026-10-06,Magazine,Wellness Kit,1.0
+2026-10-08,Girod Street,Pure Greens,1.0
+2026-10-09,Girod Street,NOLA Greens,1.0
+2026-10-09,Girod Street,Pure Greens,2.0
+2026-10-09,Magazine,Wellness Kit,2.0
+2026-10-10,Girod Street,NOLA Greens,1.0
+2026-10-10,Girod Street,Pure Greens,1.0
+2026-10-10,Magazine,NOLA Greens,4.0
+2026-10-10,Magazine,Roots,1.0
+2026-10-10,Magazine,Wellness Kit,2.0
+2026-10-11,Girod Street,NOLA Greens,1.0
+2026-10-11,Girod Street,Roots,1.0
+2026-10-11,Magazine,Pure Greens,1.0
+2026-10-12,Girod Street,NOLA Greens,1.0
+2026-10-12,Girod Street,Pure Greens,1.0
+2026-10-12,Girod Street,Roots,3.0
+2026-10-12,Magazine,NOLA Greens,2.0
+2026-10-12,Magazine,Roots,8.0
+2026-10-13,Girod Street,Roots,1.0
+2026-10-13,Magazine,NOLA Greens,1.0
+2026-10-13,Magazine,Pure Greens,5.0
+2026-10-14,Girod Street,Roots,1.0
+2026-10-14,Magazine,NOLA Greens,2.0
+2026-10-14,Magazine,Pure Greens,1.0
+2026-10-14,Magazine,Roots,1.0
+2026-10-15,Girod Street,NOLA Greens,1.0
+2026-10-15,Girod Street,Pure Greens,3.0
+2026-10-15,Girod Street,Wellness Kit,2.0
+2026-10-15,Magazine,NOLA Greens,1.0
+2026-10-15,Magazine,Pure Greens,1.0
+2026-10-16,Girod Street,Wellness Kit,2.0
+2026-10-16,Magazine,Pure Greens,2.0
+2026-10-17,Girod Street,NOLA Greens,1.0
+2026-10-17,Girod Street,Roots,1.0
+2026-10-17,Girod Street,Wellness Kit,1.0
+2026-10-18,Magazine,Pure Greens,1.0
+2026-10-19,Girod Street,NOLA Greens,1.0
+2026-10-19,Girod Street,Pure Greens,1.0
+2026-10-19,Girod Street,Roots,1.0
+2026-10-19,Magazine,Roots,6.0
+2026-10-20,Girod Street,NOLA Greens,2.0
+2026-10-20,Magazine,NOLA Greens,1.0
+2026-10-20,Magazine,Pure Greens,2.0
+2026-10-20,Magazine,Roots,1.0
+2026-10-21,Magazine,Roots,3.0
+2026-10-22,Girod Street,Pure Greens,2.0
+2026-10-22,Girod Street,Wellness Kit,1.0
+2026-10-22,Magazine,NOLA Greens,2.0
+2026-10-22,Magazine,Pure Greens,2.0
+2026-10-22,Magazine,Wellness Kit,1.0
+2026-10-23,Girod Street,Wellness Kit,2.0
+2026-10-23,Magazine,Pure Greens,1.0
+2026-10-23,Magazine,Roots,6.0
+2026-10-24,Girod Street,Roots,5.0
+2026-10-24,Magazine,Pure Greens,1.0
+2026-10-25,Girod Street,NOLA Greens,4.0
+2026-10-25,Girod Street,Pure Greens,2.0
+2026-10-25,Girod Street,Roots,1.0
+2026-10-25,Magazine,Pure Greens,1.0
+2026-10-26,Girod Street,Pure Greens,1.0
+2026-10-26,Magazine,Pure Greens,2.0
+2026-10-26,Magazine,Roots,1.0
+2026-10-27,Girod Street,NOLA Greens,3.0
+2026-10-27,Girod Street,Pure Greens,1.0
+2026-10-28,Girod Street,Pure Greens,1.0
+2026-10-28,Magazine,Pure Greens,1.0
+2026-10-28,Magazine,Roots,2.0
+2026-10-29,Girod Street,NOLA Greens,1.0
+2026-10-30,Girod Street,NOLA Greens,1.0
+2026-10-30,Girod Street,Roots,1.0
+2026-10-30,Magazine,NOLA Greens,2.0
+2026-10-30,Magazine,Pure Greens,3.0
+2026-10-30,Magazine,Roots,1.0
+2026-10-31,Girod Street,NOLA Greens,1.0
+2026-10-31,Girod Street,Pure Greens,1.0
+2026-10-31,Girod Street,Roots,1.0
+2026-10-31,Girod Street,Wellness Kit,2.0
+2026-10-31,Magazine,NOLA Greens,1.0

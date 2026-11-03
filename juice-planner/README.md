@@ -21,11 +21,22 @@ All of these settings are in `config.json`.
 
 ## Uber Eats
 
-Uber Eats orders don't reach Square today. Over the 8 weeks pulled, the only juice sales channels were in-store, Kiosk and the online store. There are three ways to fix this, best first:
+Uber Eats orders don't reach Square, so the planner raises each shop's forecast by Uber's share. The shares are in `uber_eats_pct` in `config.json`. They were measured from Uber Eats payment-detail exports against Square for Sep 7 – Oct 31, 2026, with Wellness Kits opened into bottles:
 
-1. **Connect Uber Eats to Square.** Use Square's Uber Eats integration or an aggregator like Otter, Deliverect or Chowly. Orders then flow in automatically with no change here.
-2. **Add an export.** Reshape an Uber Eats Manager sales export to the columns `date,location,item,qty` and pass it with `--history-csv ubereats.csv`. It's added to the Square numbers.
-3. **Use a flat percentage.** Set `uber_eats_pct` in `config.json`, for example `12`.
+| | Pure Greens | NOLA Greens | Roots |
+|---|---|---|---|
+| Magazine | +26% | +16% | +13% |
+| Girod Street | +24% | +25% | +18% |
+
+To refresh the shares every month or two, download the Uber Eats exports and run:
+
+```bash
+python3 ubereats.py --square sample-history.csv uber-export-1.csv uber-export-2.csv
+```
+
+Then paste the printed block into `config.json`. The Square history CSV must cover the same dates. `uber-history.csv` holds the daily Uber juice sales from the current exports.
+
+If Uber Eats is ever connected to Square, set every value to `0`. Otherwise those orders are counted twice.
 
 ## Running it
 

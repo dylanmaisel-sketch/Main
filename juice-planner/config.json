@@ -6,7 +6,11 @@
   "history_weeks": 6,
   "recency_weights": [3, 3, 2, 2, 1, 1],
   "buffer_pct": 10,
-  "uber_eats_pct": 0,
+  "uber_eats_pct": {
+    "_source": "Uber Eats exports vs Square, Sep 7 - Oct 31 2026, Wellness Kits opened into bottles",
+    "Magazine": {"Pure Greens": 26, "NOLA Greens": 16, "Roots": 13},
+    "Girod Street": {"Pure Greens": 24, "NOLA Greens": 25, "Roots": 18}
+  },
 
   "locations": {
     "93S6KDD6EVAM5": "Magazine",

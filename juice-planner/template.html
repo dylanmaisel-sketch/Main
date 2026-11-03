@@ -157,7 +157,7 @@ const $ = (id) => document.getElementById(id);
 const parse = (s) => new Date(s + "T12:00:00");
 const addDays = (s, n) => { const d = parse(s); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
 const fmtDay = (s, opts = { weekday: "short", month: "short", day: "numeric" }) => parse(s).toLocaleDateString("en-US", opts);
-const uber = 1 + PLAN.uber_eats_pct / 100;
+const uberPct = (loc, j) => typeof PLAN.uber_eats_pct === "number" ? PLAN.uber_eats_pct : ((PLAN.uber_eats_pct[loc] || {})[j] || 0);
 const buffer = 1 + PLAN.buffer_pct / 100;
 const goodThrough = (made) => addDays(made, PLAN.shelf_life_days - 1);
 const leftoverGoodThrough = goodThrough(PLAN.previous_juice_day);
@@ -171,6 +171,7 @@ const key = (loc, j) => loc + "|" + j;
 /* demand math */
 function plan(loc, juice) {
   const days = PLAN.forecast[loc][juice];
+  const uber = 1 + uberPct(loc, juice) / 100;
   const demand = PLAN.window.reduce((s, d) => s + days[d], 0) * uber;
   const early = PLAN.window.filter((d) => d <= leftoverGoodThrough).reduce((s, d) => s + days[d], 0) * uber;
   const have = onHand[key(loc, juice)] || 0;
@@ -293,9 +294,9 @@ function update() {
 function buildHow() {
   $("how").innerHTML = `
     <p>Each day's forecast is the average of the same weekday over the last ${PLAN.history_weeks} weeks of Square sales (through ${fmtDay(PLAN.history_through)}), weighting recent weeks more. It includes in-store, kiosk and online orders, and opens each Wellness Kit into one Roots plus a greens.</p>
-    <p>The plan adds a ${PLAN.buffer_pct}% buffer${PLAN.uber_eats_pct ? ` and ${PLAN.uber_eats_pct}% for Uber Eats, which isn't in Square` : ". Uber Eats isn't counted yet because those orders don't reach Square"}. Then it subtracts the cooler bottles that can sell before they expire.</p>
+    <p>Uber Eats orders don't reach Square, so each shop's forecast is raised by its Uber Eats share, measured from your Uber Eats exports for the same weeks: ${PLAN.locations.map((l) => `${l} ${PLAN.juice_order.map((j) => `${j} +${uberPct(l, j)}%`).join(", ")}`).join("; ")}. A ${PLAN.buffer_pct}% buffer goes on top. Then it subtracts the cooler bottles that can sell before they expire.</p>
     <p>Produce amounts match your recipe sheet exactly at its standard batch sizes and scale in a straight line between and beyond them. Weights are rounded to the nearest quarter pound.</p>`;
-  const head = `<tr><th>Shop / juice</th>${PLAN.window.map((d) => `<th>${fmtDay(d, { weekday: "short" })}</th>`).join("")}<th>Total</th></tr>`;
+  const head = `<tr><th>Shop / juice (Square only)</th>${PLAN.window.map((d) => `<th>${fmtDay(d, { weekday: "short" })}</th>`).join("")}<th>Total</th></tr>`;
   const body = PLAN.locations.flatMap((loc) => PLAN.juice_order.map((j) => {
     const f = PLAN.forecast[loc][j];
     const t = PLAN.window.reduce((s, d) => s + f[d], 0);
