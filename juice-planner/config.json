@@ -19,6 +19,13 @@
 
   "juice_order": ["Pure Greens", "NOLA Greens", "Roots"],
 
+  "yield_pct": {
+    "_note": "Actual juice from the recipe sheet's produce, as % of the sheet's quarts. Roots: Nov 6 2026 made 16 qt from produce for 22.5 qt.",
+    "Pure Greens": 100,
+    "NOLA Greens": 100,
+    "Roots": 71
+  },
+
   "kits": {
     "Wellness Kit": {
       "Roots": 1,

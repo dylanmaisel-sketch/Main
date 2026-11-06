@@ -200,6 +200,7 @@ def build_plan(cfg, rows, juice_day: date, last_day: date) -> dict:
         "locations": list(cfg["locations"].values()),
         "juice_order": cfg["juice_order"],
         "recipes": cfg["recipes"],
+        "yield_pct": cfg.get("yield_pct", {}),
         "forecast": forecast,
     }
 

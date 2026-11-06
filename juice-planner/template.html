@@ -275,13 +275,15 @@ function update() {
     const bottles = totals[j].make;
     const quarts = bottles * PLAN.bottle_oz / 32;
     if (!bottles) return `<div class="run ${CLS[j]}"><div class="run-head"><h3>${j}</h3><span class="skip">Skip today, the cooler covers it</span></div></div>`;
-    const a = amountsFor(PLAN.recipes[j], quarts);
+    const yieldPct = (PLAN.yield_pct || {})[j] || 100;
+    const a = amountsFor(PLAN.recipes[j], quarts * 100 / yieldPct);
     const g = a.items.find((i) => i.name === "Ginger");
     if (g) gingerLb += Math.round(g.v * 4) / 4;
     gingerCups += a.gingerCups;
     const rows = a.items.map((i) => `<tr><td>${i.name}${i.name === "Ginger" ? `<span class="sub">or ${fmtCups(a.gingerCups)} pressed ginger juice</span>` : ""}</td><td>${fmtAmount(i.v, i.unit)}</td></tr>`).join("");
     return `<div class="run ${CLS[j]}">
       <div class="run-head"><h3>${j}</h3><span class="qt num">${bottles} bottles · ${quarts.toFixed(1)} qt</span></div>
+      ${yieldPct !== 100 ? `<p class="note">Weights raised for real press yield (about ${yieldPct}% of the recipe sheet).</p>` : ""}
       <table class="ing">${rows}</table>
     </div>`;
   });
@@ -297,7 +299,7 @@ function buildHow() {
   $("how").innerHTML = `
     <p>Each day's forecast is the average of the same weekday over the last ${PLAN.history_weeks} weeks of Square sales (through ${fmtDay(PLAN.history_through)}), weighting recent weeks more. It includes in-store, kiosk and online orders, and opens each Wellness Kit into one Roots plus a greens.</p>
     <p>Uber Eats orders don't reach Square, so each shop's forecast is raised by its Uber Eats share, measured from your Uber Eats exports for the same weeks: ${PLAN.locations.map((l) => `${l} ${PLAN.juice_order.map((j) => `${j} +${uberPct(l, j)}%`).join(", ")}`).join("; ")}. A ${PLAN.buffer_pct}% buffer goes on top. Then it subtracts the cooler bottles that can sell before they expire.</p>
-    <p>Produce amounts match your recipe sheet exactly at its standard batch sizes and scale in a straight line between and beyond them. Weights are rounded to the nearest quarter pound.</p>`;
+    <p>Produce amounts match your recipe sheet exactly at its standard batch sizes and scale in a straight line between and beyond them. Where your press gives less juice than the recipe sheet says, weights are raised to match (${PLAN.juice_order.filter((j) => ((PLAN.yield_pct || {})[j] || 100) !== 100).map((j) => `${j} ${PLAN.yield_pct[j]}%`).join(", ") || "none yet"}). Weights are rounded to the nearest quarter pound.</p>`;
   const head = `<tr><th>Shop / juice (Square only)</th>${PLAN.window.map((d) => `<th>${fmtDay(d, { weekday: "short" })}</th>`).join("")}<th>Total</th></tr>`;
   const body = PLAN.locations.flatMap((loc) => PLAN.juice_order.map((j) => {
     const f = PLAN.forecast[loc][j];
