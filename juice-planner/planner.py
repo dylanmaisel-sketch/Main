@@ -204,8 +204,19 @@ def build_plan(cfg, rows, juice_day: date, last_day: date) -> dict:
     }
 
 
-def render(plan: dict, template: Path, out: Path) -> None:
+STANDALONE_HEAD = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px}[hidden]{display:none!important}</style>
+"""
+
+
+def render(plan: dict, template: Path, out: Path, standalone: bool = False) -> None:
     html = template.read_text().replace("__PLAN_DATA__", json.dumps(plan, separators=(",", ":")))
+    if standalone:
+        html = STANDALONE_HEAD + html + "\n</html>\n"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(html)
 
@@ -219,6 +230,8 @@ def main() -> None:
     ap.add_argument("--history-csv", action="append", default=[],
                     help="Use sales from CSV instead of, or as well as, Square (repeatable)")
     ap.add_argument("--json", action="store_true", help="Also print the plan data")
+    ap.add_argument("--standalone", action="store_true",
+                    help="Write a complete HTML document (doctype, head) instead of a page fragment")
     args = ap.parse_args()
 
     cfg = json.loads(Path(args.config).read_text())
@@ -238,7 +251,7 @@ def main() -> None:
         last_day = min(last_day, max(r[0] for r in rows))
 
     plan = build_plan(cfg, rows, juice_day, last_day)
-    render(plan, Path(args.template), Path(args.out))
+    render(plan, Path(args.template), Path(args.out), args.standalone)
     if args.json:
         print(json.dumps(plan, indent=2))
     print(f"Plan for {juice_day:%A %b %-d} written to {args.out}", file=sys.stderr)

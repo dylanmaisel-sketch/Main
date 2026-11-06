@@ -44,6 +44,9 @@ If Uber Eats is ever connected to Square, set every value to `0`. Otherwise thos
 # From Square (needs an access token with ORDERS_READ)
 SQUARE_ACCESS_TOKEN=... python3 planner.py --out site/index.html
 
+# Complete HTML document (for publishing tools that need a doctype)
+SQUARE_ACCESS_TOKEN=... python3 planner.py --standalone --out site/index.html
+
 # From a CSV of past sales
 python3 planner.py --history-csv sample-history.csv --date 2026-11-06
 ```
